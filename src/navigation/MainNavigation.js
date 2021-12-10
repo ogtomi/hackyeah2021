@@ -1,15 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import AddScreen from './screens/AddScreen';
-import FindMyDogScreen from './screens/FindMyDogScreen';
 import SettingScreen from './screens/SettingsScreen';
 import HomeScreen from './screens/HomeScreen';
 import MarketScreen from './screens/MarketScreen';
+import LostDogInfoScreenNavigator from "./CustomNavigation"
 
 const homeScreen = 'Home';
 const findMyDogScreen = 'Find My Dog';
@@ -25,6 +24,7 @@ const MainNavigation = () => {
       <Tab.Navigator
         initialRouteName={homeScreen}
         screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let routeName = route.name;
@@ -44,7 +44,7 @@ const MainNavigation = () => {
           },
         })}
       >
-        <Tab.Screen name={findMyDogScreen} component={FindMyDogScreen} />
+        <Tab.Screen name={findMyDogScreen} component={LostDogInfoScreenNavigator} />
         <Tab.Screen name={addScreen} component={AddScreen} />
         <Tab.Screen name={homeScreen} component={HomeScreen} />
         <Tab.Screen name={marketScreen} component={MarketScreen} />

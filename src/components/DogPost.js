@@ -1,5 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import LostDogInfo from '../navigation/screens/LostDogInfoScreen'
+
 
 const DogPost = (props) => {
     return (
