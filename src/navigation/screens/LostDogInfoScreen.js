@@ -1,10 +1,10 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import MapModule from '../../components/MapModule';
 
 const LostDogInfoScreen = ({ route, navigation }) => {
-  const { title, content } = route.params;
+  const { title, content, imgURL } = route.params;
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('FindMyDogScreen')}>
@@ -16,6 +16,7 @@ const LostDogInfoScreen = ({ route, navigation }) => {
           <Text>{content}</Text>
         </View>
       </View>
+      <Image style={styles.dogImage} source={imgURL} />
       <View style={styles.mapModule}>
         <MapModule />
       </View>
@@ -53,6 +54,11 @@ const styles = StyleSheet.create({
     height: '35%',
     justifyContent: 'flex-end',
     bottom: 0,
-    position: 'absolute'
+    position: 'absolute',
+  },
+  dogImage: {
+    alignSelf: 'center',
+    height: '30%',
+    width: '70%',
   },
 });

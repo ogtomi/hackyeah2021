@@ -20,6 +20,7 @@ const FindMyDogScreen = ({ navigation }) => {
               navigation.navigate('LostDogInfoScreen', {
                 title: item.title,
                 content: item.content,
+                imgURL: item.imgSrc
               })
             }
           >
@@ -49,6 +50,7 @@ const DATA = [
     id: '1',
     title: 'Dalmatyńczyk o imieniu Damian',
     content: 'Zgubił się podczas ostatniego spaceru',
+    imgSrc: {uri: 'https://i.kinja-img.com/gawker-media/image/upload/c_scale,f_auto,fl_progressive,pg_1,q_80,w_800/etw5ahwcfttkqikxbfg3.jpg'},
   },
   {
     id: '2',
@@ -68,13 +70,13 @@ const DATA = [
       'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
   },
   {
-    id: '3',
+    id: '5',
     title: 'Światowy Dzień Komara',
     content:
       'W przeprowadzanych przez Lasy Państwowe badaniach opinii publicznej niechęć do kłujących nas owadów deklaruje aż co trzeci badany.',
   },
   {
-    id: '4',
+    id: '6',
     title: 'Rzeźbią „Ducha lasu”',
     content:
       'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
