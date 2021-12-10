@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import AddElement from '../../components/AddElement';
+
 const ADD_KEY = '@add_key';
 
 // const storeData = async (key, value) => {
@@ -73,27 +75,30 @@ export default function App() {
   const [firstData, setFirstData] = useState('');
   const [secondData, setSecondData] = useState('');
 
+  const [openAddElement, setOpenAddElement] = useState(false);
+  const [scanned, setScanned] = useState(false);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={async () => {
-          var newData = { first: firstData, second: secondData };
-          appendData(ADD_KEY, newData);
-        }}
+        //onPress={}
         style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>Zapisz</Text>
+        <Text style={styles.loginText}>Add found dog</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={async () => {
-          var data = await getData(ADD_KEY);
-          for (var elem of data) {
-            console.log(elem);
-          }
+        onPress={() => {
+          setOpenAddElement(true);
         }}
         style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>Czytaj</Text>
+        <Text style={styles.loginText}>Add new item</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        //onPress={}
+        style={styles.loginBtn}
+      >
+        <Text style={styles.loginText}>Give to shelter</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => AsyncStorage.clear()}
@@ -101,6 +106,18 @@ export default function App() {
       >
         <Text style={styles.loginText}>Clear</Text>
       </TouchableOpacity>
+      {/* Add Missing dog Modal */}
+      <Modal transparent={false} visible={openAddElement}>
+        <AddElement></AddElement>
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={() => setOpenAddElement(false)}
+          >
+            <Text style={styles.loginText}>{'<<<'}</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 }

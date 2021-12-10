@@ -7,6 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
 
 const ADD_KEY = '@add_element_key';
 
@@ -68,107 +69,107 @@ const appendData = async (key, value) => {
   }
 };
 
-export default function App() {
-  const [firstData, setFirstData] = useState('');
-  const [secondData, setSecondData] = useState('');
+export default function AddElement() {
+  const [formTitle, setFormTitle] = useState('');
+  const [formDescription, setFormDescription] = useState('');
+
+  const [selectedCategory, setSelectedCategory] = useState();
 
   return (
     <View style={styles.container}>
+      <View style={styles.pickerView}>
+        <Text style={styles.pickerText}> Choose from the list</Text>
+        <Picker
+          style={styles.picker}
+          mode="dropdown"
+          prompt="Pick one, just one"
+          testID="basic-picker"
+          accessibilityLabel="Basic Picker Accessibility Label"
+          selectedValue={selectedCategory}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedCategory(itemValue)
+          }
+        >
+          <Picker.Item label="Category 1" value="category_1" />
+          <Picker.Item label="Category 2" value="category_2" />
+          <Picker.Item label="Category 3" value="category_3" />
+          <Picker.Item label="Category 4" value="category_4" />
+          <Picker.Item label="Category 5" value="category_5" />
+          <Picker.Item label="Category 6" value="category_6" />
+        </Picker>
+      </View>
       <TextInput
         style={styles.inputText}
-        placeholder="First"
-        placeholderTextColor="#003f5c"
-        onChangeText={text => setFirstData(text)}
+        placeholder="Title"
+        placeholderTextColor="black"
+        onChangeText={text => setFormTitle(text)}
       />
       <TextInput
         style={styles.inputText}
-        placeholder="Second"
-        placeholderTextColor="#003f5c"
-        onChangeText={text => setSecondData(text)}
+        multiline
+        placeholder="Description"
+        placeholderTextColor="black"
+        onChangeText={text => setFormDescription(text)}
       />
       <TouchableOpacity
         onPress={async () => {
-          var newData = { first: firstData, second: secondData };
+          var newData = {
+            title: formTitle,
+            description: formDescription,
+            category: selectedCategory,
+          };
           appendData(ADD_KEY, newData);
         }}
-        style={styles.loginBtn}
+        style={styles.button}
       >
-        <Text style={styles.loginText}>Zapisz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={async () => {
-          var data = await getData(ADD_KEY);
-          for (var elem of data) {
-            console.log(elem);
-          }
-        }}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Czytaj</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => AsyncStorage.clear()}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Clear</Text>
+        <Text style={styles.buttonText}>Zapisz</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  bgImage: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    resizeMode: 'stretch',
-  },
-  buttonView: {
-    marginTop: 50,
-    marginBottom: 10,
-    //width: Dimensions.get("window").width,
-    marginLeft: 5,
-    marginRight: 5,
-    height: 60,
-    backgroundColor: 'rgb(0, 80, 35)',
-    alignContent: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
-  buttonViewText: {
-    fontSize: 45,
-    alignSelf: 'center',
-  },
   container: {
     flex: 1,
     //backgroundColor: "#fff",
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: 150,
   },
-  logo: {
-    fontWeight: 'bold',
-    fontSize: 50,
-    color: 'rgb(0, 80, 35)',
-    marginBottom: 40,
+  picker: {
+    //width: '70%',
+    //textAlign: 'center',
+    color: 'black',
   },
-  inputView: {
-    width: '80%',
-    backgroundColor: '#ffff',
-    borderRadius: 25,
-    height: 50,
-    marginBottom: 20,
-    justifyContent: 'center',
-    padding: 20,
+  pickerView: {
+    //width: '70%',
+    //width: '70%',
+    color: 'black',
+    //padding: 20,
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    //marginTop: 15,
+  },
+  pickerText: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 20,
   },
   inputText: {
-    height: 50,
-    color: 'rgb(0, 80, 35)',
+    width: '70%',
+    //backgroundColor: 'rgb(255, 0, 0)',
+    //borderRadius: 25,
+    padding: 10,
+    //height: 50,
+    textAlign: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+    color: 'black',
+    borderWidth: 1,
   },
-  loginBtn: {
-    width: 220,
-    backgroundColor: 'rgb(0, 80, 35)',
+  button: {
+    width: '70%',
+    backgroundColor: 'rgb(255, 0, 0)',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10,
   },
-  loginText: {
+  buttonText: {
     color: 'white',
   },
 });
