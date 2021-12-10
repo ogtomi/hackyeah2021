@@ -1,26 +1,60 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import DogPost from '../../components/DogPost';
 
 const FindMyDogScreen = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.someText}>
-                FindMyDogScreen
-            </Text>
-        </View>
-    )
-}
+  return (
+    <View style={styles.container}>
+      <FlatList
+        ListHeaderComponent={
+          <Text style={styles.title}>Lost dogs in your neighbourhood</Text>
+        }
+        style={styles.container}
+        data={DATA}
+        renderItem={({ item }) => (
+          <DogPost title={item.title} content={item.content} />
+        )}
+        keyExtractor={item => item.id}
+      ></FlatList>
+    </View>
+  );
+};
 
-export default FindMyDogScreen
+export default FindMyDogScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    someText: {
-        fontSize: 26,
-        fontWeight: 'bold'
-    }
-})
+  container: {
+    flex: 1,
+  },
+  titlle: {
+    alignSelf: 'center',
+    fontSize: 30,
+  },
+});
+
+const DATA = [
+  {
+    id: '1',
+    title: 'Bocianie spotkanie',
+    content:
+      'Spacerując leśną ścieżką, można powoli zaobserwować zbliżającą się jesień. Jednakże nie każdy wie, że sierpień to również miesiąc, gdy dochodzi to niezwykłych spotkań na szczycie. Zebrań, których tematem przewodnim jest „omówienie” wyprawy na kontynent odległy od Polski o tysiące kilometrów.',
+  },
+  {
+    id: '2',
+    title: 'Pustułki w powietrzu',
+    content:
+      'Wcześniej pustułki przebywały w prowadzonym przez Nadleśnictwo Olsztyn Ośrodku Rehabilitacji Ptaków Drapieżnych.',
+  },
+  {
+    id: '3',
+    title: 'Światowy Dzień Komara',
+    content:
+      'W przeprowadzanych przez Lasy Państwowe badaniach opinii publicznej niechęć do kłujących nas owadów deklaruje aż co trzeci badany.',
+  },
+  {
+    id: '4',
+    title: 'Rzeźbią „Ducha lasu”',
+    content:
+      'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
+  },
+];
