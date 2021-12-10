@@ -13,6 +13,7 @@ import HomeScreen from './screens/HomeScreen';
 const homeScreen = 'Home';
 const findMyDogScreen = 'Find My Dog';
 const settingsScreen = 'Settings';
+const addScreen = 'Add'
 
 const Tab = createBottomTabNavigator();
 
@@ -32,11 +33,15 @@ const MainNavigation = () => {
                     } 
                     else if ( routeName === findMyDogScreen) 
                     {
-                        iconName = focused ? 'dog' : 'hot-dog'
+                        iconName = focused ? 'earth' : 'earth-outline'
                     }
                     else if ( routeName === settingsScreen) 
                     {
                         iconName = focused ? 'settings' : 'settings-outline'
+                    }
+                    else if ( routeName === addScreen) 
+                    {
+                        iconName = focused ? 'add' : 'add-outline'
                     }
                     return <Ionicons name={iconName} size={size} color={color} />
                 }
@@ -45,6 +50,7 @@ const MainNavigation = () => {
             <Tab.Screen name={findMyDogScreen} component={FindMyDogScreen} />
             <Tab.Screen name={homeScreen} component={HomeScreen} />
             <Tab.Screen name={settingsScreen} component={SettingScreen} />
+            <Tab.Screen name={addScreen} component={AddScreen} />
         </Tab.Navigator>
     </NavigationContainer>
   );
