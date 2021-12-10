@@ -5,7 +5,7 @@ import LostDogInfo from '../navigation/screens/LostDogInfoScreen'
 
 const DogPost = (props) => {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => console.log("presssed")}>
+        <TouchableOpacity style={styles.container}>
             <Text style={styles.title}>{props.title}</Text>
             <Text style={styles.content}>{props.content}</Text>
         </TouchableOpacity>

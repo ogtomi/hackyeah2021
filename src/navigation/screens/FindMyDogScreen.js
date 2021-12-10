@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import DogPost from '../../components/DogPost';
 import MyModal from '../../components/MyModal';
 
@@ -13,7 +14,12 @@ const FindMyDogScreen = ({ navigation }) => {
         style={styles.container}
         data={DATA}
         renderItem={({ item }) => (
-          <DogPost title={item.title} content={item.content} />
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => navigation.navigate('LostDogInfoScreen')}
+          >
+            <DogPost title={item.title} content={item.content} />
+          </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
       ></FlatList>
