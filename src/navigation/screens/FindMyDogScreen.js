@@ -16,7 +16,10 @@ const FindMyDogScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('LostDogInfoScreen')}
+            onPress={() => navigation.navigate('LostDogInfoScreen', {
+                title: item.title,
+                content: item.content,
+            })}
           >
             <DogPost title={item.title} content={item.content} />
           </TouchableOpacity>
