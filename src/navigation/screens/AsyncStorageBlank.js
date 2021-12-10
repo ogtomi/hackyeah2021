@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
-  Modal,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -75,6 +74,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.inputText}
+        placeholder="First"
+        placeholderTextColor="#003f5c"
+        onChangeText={text => setFirstData(text)}
+      />
+      <TextInput
+        style={styles.inputText}
+        placeholder="Second"
+        placeholderTextColor="#003f5c"
+        onChangeText={text => setSecondData(text)}
+      />
       <TouchableOpacity
         onPress={async () => {
           var newData = { first: firstData, second: secondData };
