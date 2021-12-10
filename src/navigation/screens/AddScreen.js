@@ -8,48 +8,109 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const storeData = async value => {
+const ADD_KEY = '@add_key';
+
+// const storeData = async (key, value) => {
+//   try {
+//     await AsyncStorage.setItem(key, value);
+//   } catch (e) {
+//     // saving error
+//   }
+// };
+
+const storeData = async (key, value) => {
   try {
-    await AsyncStorage.setItem('@storage_Key', value);
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem(key, jsonValue);
   } catch (e) {
     // saving error
   }
 };
 
-const getData = async () => {
+// const getData = async key => {
+//   try {
+//     const value = await AsyncStorage.getItem(key);
+//     console.log(value);
+//     if (value !== null) {
+//       // value previously stored
+//     }
+//   } catch (e) {
+//     // error reading value
+//   }
+// };
+
+const getData = async key => {
   try {
-    const value = await AsyncStorage.getItem('@storage_Key');
-    console.log(value);
-    if (value !== null) {
-      // value previously stored
+    var jsonValue = await AsyncStorage.getItem(key);
+    if (jsonValue != null) {
+      //console.log(JSON.parse(jsonValue));
+      return JSON.parse(jsonValue);
     }
   } catch (e) {
     // error reading value
   }
 };
 
-// const storeData = async value => {
-//   try {
-//     const jsonValue = JSON.stringify(value);
-//     await AsyncStorage.setItem('@storage_Key', jsonValue);
-//   } catch (e) {
-//     // saving error
-//   }
-// };
+const appendData = async (key, value) => {
+  try {
+    var prevData = await AsyncStorage.getItem(key);
+    if (prevData != null) {
+      prevData = JSON.parse(prevData);
+      prevData.push(value);
+      const jsonValue = JSON.stringify(prevData);
+      await AsyncStorage.setItem(key, jsonValue);
+    } else {
+      const jsonValue = JSON.stringify([value]);
+      await AsyncStorage.setItem(key, jsonValue);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
 
 export default function App() {
+  const [firstData, setFirstData] = useState('');
+  const [secondData, setSecondData] = useState('');
+
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.inputText}
+        placeholder="First"
+        placeholderTextColor="#003f5c"
+        onChangeText={text => setFirstData(text)}
+      />
+      <TextInput
+        style={styles.inputText}
+        placeholder="Second"
+        placeholderTextColor="#003f5c"
+        onChangeText={text => setSecondData(text)}
+      />
       <TouchableOpacity
-        onPress={() => {
-          storeData('TEEEST');
+        onPress={async () => {
+          var newData = { first: firstData, second: secondData };
+          appendData(ADD_KEY, newData);
         }}
         style={styles.loginBtn}
       >
         <Text style={styles.loginText}>Zapisz</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => getData()} style={styles.loginBtn}>
+      <TouchableOpacity
+        onPress={async () => {
+          var data = await getData(ADD_KEY);
+          for (var elem of data) {
+            console.log(elem);
+          }
+        }}
+        style={styles.loginBtn}
+      >
         <Text style={styles.loginText}>Czytaj</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => AsyncStorage.clear()}
+        style={styles.loginBtn}
+      >
+        <Text style={styles.loginText}>Clear</Text>
       </TouchableOpacity>
     </View>
   );
