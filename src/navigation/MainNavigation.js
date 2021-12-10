@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 import AddScreen from './screens/AddScreen';
 import FindMyDogScreen from './screens/FindMyDogScreen';
@@ -31,7 +32,7 @@ const MainNavigation = () => {
                     } 
                     else if ( routeName === findMyDogScreen) 
                     {
-                        iconName = focused ? 'list' : 'list-outline'
+                        iconName = focused ? 'dog' : 'hot-dog'
                     }
                     else if ( routeName === settingsScreen) 
                     {
