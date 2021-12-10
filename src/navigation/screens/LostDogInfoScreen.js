@@ -1,6 +1,7 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import MapModule from '../../components/MapModule';
 
 const LostDogInfoScreen = ({ route, navigation }) => {
   const { title, content } = route.params;
@@ -14,6 +15,9 @@ const LostDogInfoScreen = ({ route, navigation }) => {
         <View style={styles.contentText}>
           <Text>{content}</Text>
         </View>
+      </View>
+      <View style={styles.mapModule}>
+        <MapModule />
       </View>
     </View>
   );
@@ -38,10 +42,17 @@ const styles = StyleSheet.create({
   },
   postView: {
     marginTop: 30,
+    marginBottom: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
   contentText: {
-      marginTop: 30,
-  }
+    marginTop: 30,
+  },
+  mapModule: {
+    height: '35%',
+    justifyContent: 'flex-end',
+    bottom: 0,
+    position: 'absolute'
+  },
 });

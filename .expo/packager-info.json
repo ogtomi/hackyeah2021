@@ -1,20 +1,10 @@
 {
   "expoServerPort": 19000,
-<<<<<<< HEAD
   "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "webpackServerPort": null,
-  "devToolsPort": 19002
-=======
-  "devToolsPort": 19002,
-  "packagerPort": 19000,
   "expoServerNgrokUrl": "https://y9-nej.anonymous.doge-app.exp.direct",
   "packagerNgrokUrl": "https://packager.y9-nej.anonymous.doge-app.exp.direct",
-  "ngrokPid": 8552,
-  "packagerPid": null,
-  "webpackServerPort": null
->>>>>>> 0d0558d794b1a641610e03cab0137b59dc294324
+  "ngrokPid": 3568,
+  "webpackServerPort": null,
+  "devToolsPort": 19002
 }
