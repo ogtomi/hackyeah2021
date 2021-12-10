@@ -16,7 +16,13 @@ const FindMyDogScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('LostDogInfoScreen')}
+            onPress={() =>
+              navigation.navigate('LostDogInfoScreen', {
+                title: item.title,
+                content: item.content,
+                imgURL: item.imgSrc
+              })
+            }
           >
             <DogPost title={item.title} content={item.content} />
           </TouchableOpacity>
@@ -42,15 +48,14 @@ const styles = StyleSheet.create({
 const DATA = [
   {
     id: '1',
-    title: 'Bocianie spotkanie',
-    content:
-      'Spacerując leśną ścieżką, można powoli zaobserwować zbliżającą się jesień. Jednakże nie każdy wie, że sierpień to również miesiąc, gdy dochodzi to niezwykłych spotkań na szczycie. Zebrań, których tematem przewodnim jest „omówienie” wyprawy na kontynent odległy od Polski o tysiące kilometrów.',
+    title: 'Dalmatyńczyk o imieniu Damian',
+    content: 'Zgubił się podczas ostatniego spaceru',
+    imgSrc: {uri: 'https://i.kinja-img.com/gawker-media/image/upload/c_scale,f_auto,fl_progressive,pg_1,q_80,w_800/etw5ahwcfttkqikxbfg3.jpg'},
   },
   {
     id: '2',
-    title: 'Pustułki w powietrzu',
-    content:
-      'Wcześniej pustułki przebywały w prowadzonym przez Nadleśnictwo Olsztyn Ośrodku Rehabilitacji Ptaków Drapieżnych.',
+    title: 'Bardzo duży pies',
+    content: 'NIGDZIE SIE NIE ZGUBIŁ',
   },
   {
     id: '3',
@@ -60,6 +65,18 @@ const DATA = [
   },
   {
     id: '4',
+    title: 'Rzeźbią „Ducha lasu”',
+    content:
+      'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
+  },
+  {
+    id: '5',
+    title: 'Światowy Dzień Komara',
+    content:
+      'W przeprowadzanych przez Lasy Państwowe badaniach opinii publicznej niechęć do kłujących nas owadów deklaruje aż co trzeci badany.',
+  },
+  {
+    id: '6',
     title: 'Rzeźbią „Ducha lasu”',
     content:
       'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
