@@ -1,12 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native'
+import MainNavigation from './src/navigation/MainNavigation';
 
 export default function App() {
   return (
-    <View>
-      <Text>
-        APP
-      </Text>
-    </View>
+    <MainNavigation />
   );
 }
