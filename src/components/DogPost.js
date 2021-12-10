@@ -1,9 +1,11 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import LostDogInfo from '../navigation/screens/LostDogInfoScreen'
+
 
 const DogPost = (props) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => console.log("presssed")}>
             <Text style={styles.title}>{props.title}</Text>
             <Text style={styles.content}>{props.content}</Text>
         </TouchableOpacity>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import DogPost from '../../components/DogPost';
+import MyModal from '../../components/MyModal';
 
 const FindMyDogScreen = ({ navigation }) => {
   return (
@@ -26,9 +27,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  titlle: {
+  title: {
     alignSelf: 'center',
-    fontSize: 30,
+    fontSize: 20,
   },
 });
 
