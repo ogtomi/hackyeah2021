@@ -22,6 +22,7 @@ const storeData = async (key, value) => {
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassowrd] = useState('');
+
   return (
     <View style={styles.container}>
       <Text style={styles.mainText}>Login</Text>

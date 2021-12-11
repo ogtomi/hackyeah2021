@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native';
 import MyModal from '../../components/MyModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoggedProfile from '../../components/LoggedProfile';
+import NotloggedProfile from '../../components/NotloggedProfile';
 
 const ADD_KEY = '@register_key';
+const imageSource = require('../../images/background.jpg');
 
 const getData = async key => {
   try {
@@ -18,35 +21,47 @@ const getData = async key => {
   }
 };
 
-const isUserLoggedIn = async () => {
-  var data = await getData(ADD_KEY)
-  if (data.email !== null) return data
-  return false
-}
-
 const ProfileScreen = ({ navigation }) => {
+  const [DATA, setDATA] = useState('');
+  const [refreshing, setRefreshing] = useState(true);
+
+  useEffect(async () => {
+    var loadedData = await getData(ADD_KEY);
+    setDATA(loadedData);
+    setRefreshing(false);
+    console.log(loadedData);
+  }, [DATA]);
+
+  const onRefresh = async () => {
+    var loadedData = await getData(ADD_KEY);
+    setDATA(loadedData);
+    setRefreshing(false);
+    console.log(loadedData);
+  };
+
   return (
-    <View style={styles.container}>
-      <View>
-        <MyModal text="Register" name="Register me" />
-        <MyModal text="Login" name="Log me" />
+    <ImageBackground
+      source={imageSource}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.3 }}
+    >
+      <View style={styles.container}>
+        <View>
+          <Text>
+            {DATA !== undefined ? (
+              <LoggedProfile
+                name={DATA.name}
+                surname={DATA.surname}
+                email={DATA.email}
+              />
+            ) : (
+              <NotloggedProfile />
+            )}
+          </Text>
+        </View>
       </View>
-      <View>
-        <Text>Profile screen </Text>
-      </View>
-      
-      <TouchableOpacity
-        onPress={async () => {
-          var data = await getData(ADD_KEY);
-          console.log(data);
-          // for (var elem of data) {
-          //   console.log(elem);
-          // }
-        }}
-      >
-        <Text>READ VALUE</Text>
-      </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -62,5 +77,10 @@ const styles = StyleSheet.create({
   someText: {
     fontSize: 26,
     fontWeight: 'bold',
+  },
+  backgroundImage: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
 });

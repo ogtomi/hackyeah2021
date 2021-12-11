@@ -14,6 +14,7 @@ import RegisterForm from  '../forms/Register.form'
 
 const MyModal = props => {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -27,7 +28,7 @@ const MyModal = props => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            {props.text === "Login" ? <LoginForm /> : <RegisterForm />}
+            {props.text === "Login" ? <LoginForm closeModal={() => setModalVisible(false)}/> : <RegisterForm closeModal={() => setModalVisible(false)}/>}
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
