@@ -5,9 +5,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Image,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const ADD_KEY = '@add_element_key';
 
@@ -19,14 +22,14 @@ const ADD_KEY = '@add_element_key';
 //   }
 // };
 
-const storeData = async (key, value) => {
-  try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(key, jsonValue);
-  } catch (e) {
-    // saving error
-  }
-};
+// const storeData = async (key, value) => {
+//   try {
+//     const jsonValue = JSON.stringify(value);
+//     await AsyncStorage.setItem(key, jsonValue);
+//   } catch (e) {
+//     // saving error
+//   }
+// };
 
 // const getData = async key => {
 //   try {
@@ -40,23 +43,26 @@ const storeData = async (key, value) => {
 //   }
 // };
 
-const getData = async key => {
-  try {
-    var jsonValue = await AsyncStorage.getItem(key);
-    if (jsonValue != null) {
-      //console.log(JSON.parse(jsonValue));
-      return JSON.parse(jsonValue);
-    }
-  } catch (e) {
-    // error reading value
-  }
-};
+// const getData = async key => {
+//   try {
+//     var jsonValue = await AsyncStorage.getItem(key);
+//     if (jsonValue != null) {
+//       //console.log(JSON.parse(jsonValue));
+//       return JSON.parse(jsonValue);
+//     }
+//   } catch (e) {
+//     // error reading value
+//   }
+// };
 
 const appendData = async (key, value) => {
   try {
     var prevData = await AsyncStorage.getItem(key);
     if (prevData != null) {
       prevData = JSON.parse(prevData);
+
+      var lastId = prevData.length - 1;
+      value.id = lastId + 1;
       prevData.push(value);
       const jsonValue = JSON.stringify(prevData);
       await AsyncStorage.setItem(key, jsonValue);
@@ -74,6 +80,35 @@ export default function AddElement() {
   const [formDescription, setFormDescription] = useState('');
 
   const [selectedCategory, setSelectedCategory] = useState();
+
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -111,18 +146,26 @@ export default function AddElement() {
         placeholderTextColor="black"
         onChangeText={text => setFormDescription(text)}
       />
+      <TouchableOpacity onPress={pickImage} style={styles.button}>
+        <Text style={styles.buttonText}>Choose image</Text>
+      </TouchableOpacity>
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
       <TouchableOpacity
         onPress={async () => {
           var newData = {
+            id: '0',
             title: formTitle,
             description: formDescription,
             category: selectedCategory,
+            imageUri: image,
           };
           appendData(ADD_KEY, newData);
         }}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>Zapisz</Text>
+        <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
     </View>
   );
