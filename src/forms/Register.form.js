@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -7,23 +7,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CredentialsContext } from '../components/CredentialsContext';
 
 const ADD_KEY = '@register_key';
-
-const storeData = async (key, value) => {
-  try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(key, jsonValue);
-  } catch (e) {
-    // saving error
-  }
-};
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassowrd] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+
+  const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext)
 
   return (
     <View style={styles.container}>
@@ -57,7 +51,7 @@ const RegisterForm = () => {
       <TouchableOpacity
         onPress={async () => {
           var newData = { name: name, surname: surname, email: email, password: password };
-          append(ADD_KEY, newData);
+          storeData(ADD_KEY, newData);
         }}
         style={styles.loginBtn}
       >
@@ -67,6 +61,27 @@ const RegisterForm = () => {
   );
 };
 
+const storeData = async (key, value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem(key, jsonValue);
+  } catch (e) {
+    console.log(e)
+    // saving error
+  }
+};
+
+const persistRegister = (credentials, message, status) => {
+  AsyncStorage.setItem('@register_key', JSON.stringify(credentials))
+  .then(() => {
+    handleMessage(message, status)
+    setStoredCredentials(credentials)
+  })
+  .catch((error) => {
+    console.log(error)
+    handleMessage('Register failed')
+  })
+}
 export default RegisterForm;
 
 const styles = StyleSheet.create({
