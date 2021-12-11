@@ -7,13 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AddScreen from './screens/AddScreen';
 import HomeScreen from './screens/HomeScreen';
 import MarketScreen from './screens/MarketScreen';
-<<<<<<< HEAD
-import LostDogInfoScreenNavigator from "./CustomNavigation"
 import ProfileScreen from './screens/ProfileScreen';
-=======
 import LostDogInfoScreenNavigator from './CustomNavigation';
 import MarkerScreenNavigator from './MarketNavigation';
->>>>>>> 9a7db6150f7c34db8c8c90c7c26d8c25d9f22bb8
 
 const homeScreen = 'Home';
 const findMyDogScreen = 'Find My Dog';
@@ -55,14 +51,8 @@ const MainNavigation = () => {
         />
         <Tab.Screen name={addScreen} component={AddScreen} />
         <Tab.Screen name={homeScreen} component={HomeScreen} />
-<<<<<<< HEAD
-        <Tab.Screen name={marketScreen} component={MarketScreen} />
-        <Tab.Screen name={profileScreen} component={ProfileScreen} />
-        
-=======
         <Tab.Screen name={marketScreen} component={MarkerScreenNavigator} />
-        <Tab.Screen name={settingsScreen} component={SettingScreen} />
->>>>>>> 9a7db6150f7c34db8c8c90c7c26d8c25d9f22bb8
+        <Tab.Screen name={profileScreen} component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
