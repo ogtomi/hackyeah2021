@@ -5,14 +5,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddScreen from './screens/AddScreen';
-import SettingScreen from './screens/SettingsScreen';
 import HomeScreen from './screens/HomeScreen';
 import MarketScreen from './screens/MarketScreen';
 import LostDogInfoScreenNavigator from "./CustomNavigation"
+import ProfileScreen from './screens/ProfileScreen';
 
 const homeScreen = 'Home';
 const findMyDogScreen = 'Find My Dog';
-const settingsScreen = 'Settings';
+const profileScreen = 'My profile';
 const addScreen = 'Add';
 const marketScreen = 'Market';
 
@@ -37,8 +37,8 @@ const MainNavigation = () => {
               iconName = focused ? 'add' : 'add-outline';
             } else if (routeName === marketScreen) {
               iconName = focused ? 'ios-cart' : 'ios-cart-outline';
-            } else if (routeName === settingsScreen) {
-              iconName = focused ? 'settings' : 'settings-outline';
+            } else if (routeName === profileScreen) {
+              iconName = focused ? 'person' : 'person-outline';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -48,7 +48,7 @@ const MainNavigation = () => {
         <Tab.Screen name={addScreen} component={AddScreen} />
         <Tab.Screen name={homeScreen} component={HomeScreen} />
         <Tab.Screen name={marketScreen} component={MarketScreen} />
-        <Tab.Screen name={settingsScreen} component={SettingScreen} />
+        <Tab.Screen name={profileScreen} component={ProfileScreen} />
         
       </Tab.Navigator>
     </NavigationContainer>
