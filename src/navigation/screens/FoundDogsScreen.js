@@ -66,7 +66,6 @@ const FoundDogsScreen = ({ navigation }) => {
                 title={item.title}
                 description={item.description}
                 image={{ uri: item.imageUri }}
-                phoneNumber={item.phoneNumber}
               />
             </TouchableOpacity>
           )}
@@ -94,8 +93,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     marginBottom: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    //fontWeight: 'bold',
   },
   backgroundImage: {
     flex: 1,

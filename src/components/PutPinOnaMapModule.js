@@ -1,26 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Alert,
-} from 'react-native';
-import MapView, {
-  Callout,
-  Circle,
-  LatLng,
-  Marker,
-  Overlay,
-  Polygon,
-} from 'react-native-maps';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
 
-const MapModule = ({ longitude, latitude }) => {
+const PutPinOnaMapModule = ({ callbackLocation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [center, setCenter] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -44,7 +29,7 @@ const MapModule = ({ longitude, latitude }) => {
       style={{
         flex: 1,
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height * 0.5,
       }}
     >
       <MapView
@@ -56,25 +41,13 @@ const MapModule = ({ longitude, latitude }) => {
           longitudeDelta: 0.1,
         }}
         provider="google"
-        onPress={e => {
-          {
-            console.log(location);
-          }
-        }}
       >
-        <Circle
-          //coordinates={place.Circle}
-          center={{ latitude: latitude, longitude: longitude }}
-          radius={5000}
-          onPress={e => {
-            Alert.alert(place.placeName, place.description, [{ text: 'OK' }]);
-          }}
-          fillColor='rgba(0, 10, 100, 0.5)'
-          strokeColor="transparent"
-        />
         <Marker
-          coordinate={{ latitude: latitude, longitude: longitude }}
-          draggable={false}
+          coordinate={{ latitude: 54.539, longitude: 18.473 }}
+          draggable={true}
+          onDragEnd={e => {
+            callbackLocation(e.nativeEvent.coordinate);
+          }}
         >
           <Callout>
             <Text>Last seen here</Text>
@@ -85,7 +58,7 @@ const MapModule = ({ longitude, latitude }) => {
   );
 };
 
-export default MapModule;
+export default PutPinOnaMapModule;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

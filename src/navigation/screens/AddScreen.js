@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddElement from '../../components/AddElement';
 import AddMissingDog from '../../components/AddMissingDog';
 import AddFoundDog from '../../components/AddFoundDog';
+import AddGiveToShelter from '../../components/AddGivetoShelter';
 
 const ADD_KEY = '@add_key';
 const MISSING_DOG_KEY = '@missing_dog_key';
@@ -84,6 +85,7 @@ export default function AddScreen() {
   const [openAddElement, setOpenAddElement] = useState(false);
   const [openAddMissingDog, setOpenAddMissingDog] = useState(false);
   const [openAddFoundDog, setOpenAddFoundDog] = useState(false);
+  const [openGiveToShelter, setOpenGiveToShelter] = useState(false);
   const [scanned, setScanned] = useState(false);
 
   return (
@@ -119,7 +121,7 @@ export default function AddScreen() {
           <Text style={styles.buttonText}>New item</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          //onPress={}
+          onPress={() => setOpenGiveToShelter(true)}
           style={styles.category1}
         >
           <Text style={styles.buttonText}>Give to shelter</Text>
@@ -130,7 +132,7 @@ export default function AddScreen() {
         >
           <Text style={styles.buttonText}>Clear</Text>
         </TouchableOpacity>
-        {/* Add Missing dog Modal */}
+  
         <Modal transparent={false} visible={openAddElement}>
           <View style={styles.topButtonView}>
             <TouchableOpacity
@@ -178,6 +180,23 @@ export default function AddScreen() {
             <AddFoundDog
               closeModal={() => setOpenAddFoundDog(false)}
             ></AddFoundDog>
+          </ScrollView>
+        </Modal>
+          
+        {/* GIVE TO SHELTER MODAL */}
+        <Modal transparent={false} visible={openGiveToShelter}>
+          <View style={styles.topButtonView}>
+            <TouchableOpacity
+              style={styles.topButton}
+              onPress={() => setOpenGiveToShelter(false)}
+            >
+              <Text style={styles.topButtonText}>{'X'}</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <AddGiveToShelter
+              closeModal={() => setOpenGiveToShelter(false)}
+            ></AddGiveToShelter>
           </ScrollView>
         </Modal>
       </View>

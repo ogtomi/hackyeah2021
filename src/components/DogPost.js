@@ -32,16 +32,15 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 3,
-    fontSize: 12,
-    fontWeight: 'bold',
+    fontSize: 20,
   },
   content: {
     marginTop: 5,
-    fontSize: 10,
+    fontSize: 15,
   },
   thumbnailImage: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
     marginRight: 7,
     marginTop: 5,
   },

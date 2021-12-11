@@ -14,10 +14,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
-import PutPinOnaMapModule from './PutPinOnaMapModule';
-import { set } from 'react-native-reanimated';
-
-const MISSING_DOG_KEY = '@missing_dog_key';
 
 const appendData = async (key, value) => {
   try {
@@ -39,11 +35,13 @@ const appendData = async (key, value) => {
   }
 };
 
-export default function AddMissingDog(closeModal) {
+export default function AddGiveToShelter(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
-  const [formContactNumber, setFormContactNumber] = useState(null);
-  const [ location, setLocation ] = useState(null)
+  const [formPrice, setFormPrice] = useState('');
+
+  const [selectedCategory, setSelectedCategory] = useState();
+
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -77,16 +75,13 @@ export default function AddMissingDog(closeModal) {
     }
   };
 
-  const callbackLocation = (location) => {
-    setLocation(location)
-  }
   return (
     <TouchableOpacity
       onPress={onClickFunction}
       style={styles.container}
       activeOpacity={1.0}
     >
-      <Text style={styles.titleText}> Add missing dog</Text>
+      <Text style={styles.titleText}> Add new item</Text>
       <TouchableOpacity onPress={pickImage} style={styles.chooseImage}>
         {image && (
           <Image
@@ -94,15 +89,31 @@ export default function AddMissingDog(closeModal) {
             style={{ width: '100%', height: 135 }}
           />
         )}
-        {!image && (
-          <Text style={styles.chooseImageText}>+ Choose image of your dog</Text>
-        )}
+        {!image && <Text style={styles.chooseImageText}>+ Choose image</Text>}
       </TouchableOpacity>
 
+      <Text style={styles.pickerText}> Choose category</Text>
+      <View style={styles.pickerView}>
+        <Picker
+          style={styles.picker}
+          mode="dropdown"
+          prompt="Pick one, just one"
+          testID="basic-picker"
+          accessibilityLabel="Basic Picker Accessibility Label"
+          selectedValue={selectedCategory}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedCategory(itemValue)
+          }
+        >
+          <Picker.Item label="Toys" value={TOYS_ADD_KEY} />
+          <Picker.Item label="Food" value={FOOD_ADD_KEY} />
+          <Picker.Item label="Clothes" value={CLOTHES_ADD_KEY} />
+        </Picker>
+      </View>
       <Text style={styles.labelText}>Title</Text>
       <TextInput
         style={styles.inputText}
-        placeholder="Name of the dog, breed"
+        placeholder="e.g. Barely used toys"
         placeholderTextColor="black"
         onChangeText={text => setFormTitle(text)}
       />
@@ -110,39 +121,46 @@ export default function AddMissingDog(closeModal) {
       <TextInput
         style={styles.inputText}
         multiline
-        placeholder="Describe your dog and what happened!"
+        placeholder="You can add anything you want!"
         placeholderTextColor="black"
         minHeight={200}
         onChangeText={text => setFormDescription(text)}
       />
-      <Text style={styles.labelText}>Contact number</Text>
-      <TextInput
-        style={styles.inputText}
-        keyboardType="numeric"
-        placeholder=""
-        placeholderTextColor="black"
-        onChangeText={text => setFormContactNumber(text)}
-      />
-      <Text style={styles.labelText}>Where did u see the dog?</Text>
-      <PutPinOnaMapModule callbackLocation={callbackLocation}/>
+      <Text style={styles.labelText}>Choose shelter you want to donate to</Text>
+      <View style={styles.pickerView}>
+        <Picker
+          style={styles.picker}
+          mode="dropdown"
+          prompt="Pick one, just one"
+          testID="basic-picker"
+          accessibilityLabel="Basic Picker Accessibility Label"
+          selectedValue={selectedCategory}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedCategory(itemValue)
+          }
+        >
+          <Picker.Item label="Shelter1" value={TOYS_ADD_KEY} />
+          <Picker.Item label="Shelter2" value={FOOD_ADD_KEY} />
+          <Picker.Item label="Shelter3" value={CLOTHES_ADD_KEY} />
+        </Picker>
+      </View>
       <TouchableOpacity
         onPress={async () => {
           var newData = {
             id: '0',
             title: formTitle,
             description: formDescription,
+            category: selectedCategory,
             imageUri: image,
-            latitude: location.latitude,
-            phoneNumber: formContactNumber,
-            longitude: location.longitude
+            prise: formPrice,
           };
-          appendData(MISSING_DOG_KEY, newData);
-          Alert.alert('OK', 'Success!');
+          //appendData(selectedCategory, newData);
+          Alert.alert('Donated!', 'Your donation was successfully submitted');
           closeModal.closeModal();
         }}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>Save</Text>
+        <Text style={styles.buttonText}>Donate</Text>
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -174,12 +192,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     marginTop: 20,
-  },
-  mapModule: {
-    height: '5%',
-    justifyContent: 'flex-end',
-    bottom: 0,
-    position: 'absolute',
   },
   chooseImageText: { color: 'black' },
   picker: {

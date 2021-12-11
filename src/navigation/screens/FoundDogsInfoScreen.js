@@ -25,7 +25,7 @@ const getData = async key => {
 };
 
 const FoundDogsInfoScreen = ({ route, navigation }) => {
-  const { title, descirption, imgURL, phoneNumber } = route.params;
+  const { title, description, imgURL, phoneNumber } = route.params;
 
   return (
     <ImageBackground
@@ -36,16 +36,20 @@ const FoundDogsInfoScreen = ({ route, navigation }) => {
     >
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('FoundDogsScreen')}
+          style={styles.topButton}
+          onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backText}>Go back</Text>
+          <Text style={styles.topButtonText}>{'<'}</Text>
         </TouchableOpacity>
         <View style={styles.postView}>
           <Text style={styles.title}>{title}</Text>
-          <View style={styles.contentText}>
-            <Text>{descirption}</Text>
+          <View>
+            <Text style={styles.contentText}>{description}</Text>
           </View>
-          <Text>Contact number: {phoneNumber}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.staticText}>Contact number:</Text>
+            <Text style={styles.numberText}>{phoneNumber}</Text>
+          </View>
         </View>
         <Image style={styles.dogImage} source={{ uri: imgURL }} />
       </View>
@@ -62,23 +66,32 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
   },
   backText: {
-    marginTop: 20,
     marginLeft: 10,
     fontSize: 18,
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     alignSelf: 'center',
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
   },
   postView: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  staticText: {
+    fontSize: 16,
+    alignItems: 'center',
+    textDecorationLine: 'underline',
+  },
   contentText: {
     marginTop: 20,
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  numberText: {
+    fontSize: 18,
+    marginLeft: 20,
   },
   mapModule: {
     height: '35%',
@@ -95,5 +108,21 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
+  },
+  topButton: {
+    width: 50,
+    left: 10,
+    //backgroundColor: 'rgb(0, 80, 35)',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  topButtonText: {
+    color: 'black',
+    fontSize: 20,
   },
 });

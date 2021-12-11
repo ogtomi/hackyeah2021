@@ -1,12 +1,20 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import MapModule from '../../components/MapModule';
 
 const imageSource = require('../../images/background.jpg');
 
 const LostDogInfoScreen = ({ route, navigation }) => {
-  const { title, content, imgURL, longitude, latitude } = route.params;
+  const { title, description, imgURL, phoneNumber, longitude, latitude } = route.params;
+  
   return (
     <ImageBackground
       source={imageSource}
@@ -16,17 +24,22 @@ const LostDogInfoScreen = ({ route, navigation }) => {
     >
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('FindMyDogScreen')}
+          style={styles.topButton}
+          onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backText}>Go back</Text>
+          <Text style={styles.topButtonText}>{'<'}</Text>
         </TouchableOpacity>
         <View style={styles.postView}>
           <Text style={styles.title}>{title}</Text>
-          <View style={styles.contentText}>
-            <Text>{content}</Text>
+          <View>
+            <Text style={styles.contentText}>{description}</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.staticText}>Contact number:</Text>
+            <Text style={styles.numberText}>{phoneNumber}</Text>
           </View>
         </View>
-        <Image style={styles.dogImage} source={imgURL} />
+        <Image style={styles.dogImage} source={{ uri: imgURL }} />
         <View style={styles.mapModule}>
           <MapModule longitude={longitude} latitude={latitude} />
         </View>
@@ -44,23 +57,32 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
   },
   backText: {
-    marginTop: 20,
     marginLeft: 10,
     fontSize: 18,
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     alignSelf: 'center',
-    fontWeight: 'bold'
+    //fontWeight: 'bold',
   },
   postView: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  staticText: {
+    fontSize: 16,
+    alignItems: 'center',
+    textDecorationLine: 'underline',
+  },
   contentText: {
     marginTop: 20,
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  numberText: {
+    fontSize: 18,
+    marginLeft: 20,
   },
   mapModule: {
     height: '35%',
@@ -77,5 +99,21 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
+  },
+  topButton: {
+    width: 50,
+    left: 10,
+    //backgroundColor: 'rgb(0, 80, 35)',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  topButtonText: {
+    color: 'black',
+    fontSize: 20,
   },
 });
