@@ -1,0 +1,247 @@
+import React, { useState, useContext, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Image,
+  Platform,
+  Keyboard,
+  Alert,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
+import * as ImagePicker from 'expo-image-picker';
+import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
+
+const appendData = async (key, value) => {
+  try {
+    var prevData = await AsyncStorage.getItem(key);
+    if (prevData != null) {
+      prevData = JSON.parse(prevData);
+
+      var lastId = prevData.length - 1;
+      value.id = lastId + 1;
+      prevData.push(value);
+      const jsonValue = JSON.stringify(prevData);
+      await AsyncStorage.setItem(key, jsonValue);
+    } else {
+      const jsonValue = JSON.stringify([value]);
+      await AsyncStorage.setItem(key, jsonValue);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
+export default function AddGiveToShelter(closeModal) {
+  const [formTitle, setFormTitle] = useState('');
+  const [formDescription, setFormDescription] = useState('');
+  const [formPrice, setFormPrice] = useState('');
+
+  const [selectedCategory, setSelectedCategory] = useState();
+
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  const onClickFunction = () => {
+    Keyboard.dismiss();
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [18, 9],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  return (
+    <TouchableOpacity
+      onPress={onClickFunction}
+      style={styles.container}
+      activeOpacity={1.0}
+    >
+      <Text style={styles.titleText}> Add new item</Text>
+      <TouchableOpacity onPress={pickImage} style={styles.chooseImage}>
+        {image && (
+          <Image
+            source={{ uri: image }}
+            style={{ width: '100%', height: 135 }}
+          />
+        )}
+        {!image && <Text style={styles.chooseImageText}>+ Choose image</Text>}
+      </TouchableOpacity>
+
+      <Text style={styles.pickerText}> Choose category</Text>
+      <View style={styles.pickerView}>
+        <Picker
+          style={styles.picker}
+          mode="dropdown"
+          prompt="Pick one, just one"
+          testID="basic-picker"
+          accessibilityLabel="Basic Picker Accessibility Label"
+          selectedValue={selectedCategory}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedCategory(itemValue)
+          }
+        >
+          <Picker.Item label="Toys" value={TOYS_ADD_KEY} />
+          <Picker.Item label="Food" value={FOOD_ADD_KEY} />
+          <Picker.Item label="Clothes" value={CLOTHES_ADD_KEY} />
+        </Picker>
+      </View>
+      <Text style={styles.labelText}>Title</Text>
+      <TextInput
+        style={styles.inputText}
+        placeholder="e.g. Barely used toys"
+        placeholderTextColor="black"
+        onChangeText={text => setFormTitle(text)}
+      />
+      <Text style={styles.labelText}>Description</Text>
+      <TextInput
+        style={styles.inputText}
+        multiline
+        placeholder="You can add anything you want!"
+        placeholderTextColor="black"
+        minHeight={200}
+        onChangeText={text => setFormDescription(text)}
+      />
+      <Text style={styles.labelText}>Choose shelter you want to donate to</Text>
+      <View style={styles.pickerView}>
+        <Picker
+          style={styles.picker}
+          mode="dropdown"
+          prompt="Pick one, just one"
+          testID="basic-picker"
+          accessibilityLabel="Basic Picker Accessibility Label"
+          selectedValue={selectedCategory}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedCategory(itemValue)
+          }
+        >
+          <Picker.Item label="Shelter1" value={TOYS_ADD_KEY} />
+          <Picker.Item label="Shelter2" value={FOOD_ADD_KEY} />
+          <Picker.Item label="Shelter3" value={CLOTHES_ADD_KEY} />
+        </Picker>
+      </View>
+      <TouchableOpacity
+        onPress={async () => {
+          var newData = {
+            id: '0',
+            title: formTitle,
+            description: formDescription,
+            category: selectedCategory,
+            imageUri: image,
+            prise: formPrice,
+          };
+          //appendData(selectedCategory, newData);
+          Alert.alert('Donated!', 'Your donation was successfully submitted');
+          closeModal.closeModal();
+        }}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Donate</Text>
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    //backgroundColor: "#fff",
+    alignItems: 'center',
+    //justifyContent: 'center',
+    //marginTop: 150,
+  },
+  labelText: { color: 'black', textAlign: 'left', fontSize: 20 },
+  titleText: {
+    fontSize: 30,
+    color: 'black',
+    marginBottom: 10,
+    marginTop: 10,
+    //textAlign: 'center',
+  },
+  chooseImage: {
+    width: '90%',
+    backgroundColor: '#ebebeb',
+    borderRadius: 5,
+    //borderWidth: 1,
+    height: 135,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  chooseImageText: { color: 'black' },
+  picker: {
+    //width: '75%',
+    //textAlign: 'center',
+    color: 'black',
+  },
+  pickerView: {
+    width: '90%',
+    padding: 10,
+    backgroundColor: '#ebebeb',
+    //width: '75%',
+    //width: '75%',
+    color: 'black',
+    //padding: 20,
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    //marginTop: 15,
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  pickerText: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  inputText: {
+    width: '90%',
+    //backgroundColor: 'rgb(255, 0, 0)',
+    //borderRadius: 25,
+    padding: 10,
+    //height: 50,
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    color: 'black',
+    backgroundColor: '#ebebeb',
+    borderRadius: 5,
+  },
+  button: {
+    width: '90%',
+    backgroundColor: '#c79200',
+    borderRadius: 5,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+  },
+});
