@@ -40,13 +40,15 @@ const MainNavigation = () => {
                 if (routeName === homeScreen) {
                   iconName = focused ? 'home' : 'home-outline';
                 } else if (routeName === findMyDogScreen) {
-                  iconName = focused ? 'earth' : 'earth-outline';
+                  iconName = focused ? 'ios-sad' : 'ios-sad-outline';
                 } else if (routeName === addScreen) {
                   iconName = focused ? 'add' : 'add-outline';
                 } else if (routeName === marketScreen) {
                   iconName = focused ? 'ios-cart' : 'ios-cart-outline';
                 } else if (routeName === profileScreen) {
                   iconName = focused ? 'person' : 'person-outline';
+                } else if (routeName === foundDogScreen) {
+                  iconName = focused ? 'ios-happy' : 'ios-happy-outline';
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },

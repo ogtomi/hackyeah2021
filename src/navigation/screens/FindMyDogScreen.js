@@ -42,7 +42,7 @@ const FindMyDogScreen = ({ navigation }) => {
             >
               <DogPost
                 title={item.title}
-                content={item.content}
+                description={item.content}
                 image={item.imgSrc}
               />
             </TouchableOpacity>

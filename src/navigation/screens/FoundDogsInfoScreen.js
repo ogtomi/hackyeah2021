@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MyModal from '../../components/MyModal';
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
+} from 'react-native';
 import MapModule from '../../components/MapModule';
 
 const imageSource = require('../../images/background.jpg');
 
+const getData = async key => {
+  try {
+    var jsonValue = await AsyncStorage.getItem(key);
+    if (jsonValue != null) {
+      //console.log(JSON.parse(jsonValue));
+      return JSON.parse(jsonValue);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
 const FoundDogsInfoScreen = ({ route, navigation }) => {
-  const { title, content, imgURL, longitude, latitude } = route.params;
+  const { title, descirption, imgURL, phoneNumber } = route.params;
+
   return (
     <ImageBackground
       source={imageSource}
@@ -23,13 +43,11 @@ const FoundDogsInfoScreen = ({ route, navigation }) => {
         <View style={styles.postView}>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.contentText}>
-            <Text>{content}</Text>
+            <Text>{descirption}</Text>
           </View>
+          <Text>Contact number: {phoneNumber}</Text>
         </View>
-        <Image style={styles.dogImage} source={imgURL} />
-        <View style={styles.mapModule}>
-          <MapModule longitude={longitude} latitude={latitude} />
-        </View>
+        <Image style={styles.dogImage} source={{ uri: imgURL }} />
       </View>
     </ImageBackground>
   );
@@ -51,7 +69,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     alignSelf: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   postView: {
     marginTop: 20,

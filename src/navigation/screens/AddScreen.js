@@ -12,8 +12,11 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AddElement from '../../components/AddElement';
+import AddMissingDog from '../../components/AddMissingDog';
+import AddFoundDog from '../../components/AddFoundDog';
 
 const ADD_KEY = '@add_key';
+const MISSING_DOG_KEY = '@missing_dog_key';
 const imageSource = require('../../images/background.jpg');
 
 // const storeData = async (key, value) => {
@@ -79,6 +82,8 @@ export default function AddScreen() {
   const [secondData, setSecondData] = useState('');
 
   const [openAddElement, setOpenAddElement] = useState(false);
+  const [openAddMissingDog, setOpenAddMissingDog] = useState(false);
+  const [openAddFoundDog, setOpenAddFoundDog] = useState(false);
   const [scanned, setScanned] = useState(false);
 
   return (
@@ -90,13 +95,17 @@ export default function AddScreen() {
     >
       <View style={styles.container}>
         <TouchableOpacity
-          //onPress={}
+          onPress={() => {
+            setOpenAddFoundDog(true);
+          }}
           style={styles.category1}
         >
           <Text style={styles.buttonText}>Found dog</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          //onPress={}
+          onPress={() => {
+            setOpenAddMissingDog(true);
+          }}
           style={styles.category2}
         >
           <Text style={styles.buttonText}>Missing dog</Text>
@@ -135,6 +144,40 @@ export default function AddScreen() {
             <AddElement
               closeModal={() => setOpenAddElement(false)}
             ></AddElement>
+          </ScrollView>
+        </Modal>
+
+        {/* MISSING DOG MODAL */}
+        <Modal transparent={false} visible={openAddMissingDog}>
+          <View style={styles.topButtonView}>
+            <TouchableOpacity
+              style={styles.topButton}
+              onPress={() => setOpenAddMissingDog(false)}
+            >
+              <Text style={styles.topButtonText}>{'X'}</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <AddMissingDog
+              closeModal={() => setOpenAddMissingDog(false)}
+            ></AddMissingDog>
+          </ScrollView>
+        </Modal>
+
+        {/* FOUND DOG MODAL */}
+        <Modal transparent={false} visible={openAddFoundDog}>
+          <View style={styles.topButtonView}>
+            <TouchableOpacity
+              style={styles.topButton}
+              onPress={() => setOpenAddFoundDog(false)}
+            >
+              <Text style={styles.topButtonText}>{'X'}</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <AddFoundDog
+              closeModal={() => setOpenAddFoundDog(false)}
+            ></AddFoundDog>
           </ScrollView>
         </Modal>
       </View>

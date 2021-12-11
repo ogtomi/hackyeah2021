@@ -12,7 +12,7 @@ const DogPost = props => {
         />
         <View style={styles.textView}>
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.content}>{props.content}</Text>
+          <Text style={styles.content}>{props.description}</Text>
         </View>
       </View>
     </TouchableOpacity>
