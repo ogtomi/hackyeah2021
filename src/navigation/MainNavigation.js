@@ -12,6 +12,7 @@ import LostDogInfoScreenNavigator from './CustomNavigation';
 import MarkerScreenNavigator from './MarketNavigation';
 import LostFoundDogNavigation from './LostFoundDogNavigation';
 import { CredentialsContext } from '../components/CredentialsContext';
+import ProfileNavigator from './ProfileNavigation';
 
 const homeScreen = 'Home';
 const findMyDogScreen = 'Lost Dogs';
@@ -62,7 +63,7 @@ const MainNavigation = () => {
             <Tab.Screen name={addScreen} component={AddScreen} />
             <Tab.Screen name={homeScreen} component={HomeScreen} />
             <Tab.Screen name={marketScreen} component={MarkerScreenNavigator} />
-            <Tab.Screen name={profileScreen} component={ProfileScreen} />
+            <Tab.Screen name={profileScreen} component={ProfileNavigator} />
           </Tab.Navigator>
         </NavigationContainer>
       )}

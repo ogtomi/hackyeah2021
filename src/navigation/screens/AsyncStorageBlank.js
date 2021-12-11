@@ -46,6 +46,7 @@ const getData = async key => {
       //console.log(JSON.parse(jsonValue));
       return JSON.parse(jsonValue);
     }
+    return null;
   } catch (e) {
     // error reading value
   }

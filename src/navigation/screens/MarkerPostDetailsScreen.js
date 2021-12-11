@@ -12,18 +12,17 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
       >
         <Text style={styles.topButtonText}>{'<'}</Text>
       </TouchableOpacity>
+      {imageUri && (
+        <Image
+          source={{ uri: imageUri }}
+          style={{ width: '100%', height: '30%', alignSelf: 'center' }}
+        />
+      )}
       <View style={styles.postView}>
         <Text style={styles.title}>{title}</Text>
-        {imageUri && (
-          <Image
-            source={{ uri: imageUri }}
-            style={{ width: 200, height: 200 }}
-          />
-        )}
-        <View style={styles.contentText}>
-          <Text>{description}</Text>
-          <Text>{category}</Text>
-        </View>
+        <Text style={styles.prise}>{prise}zł</Text>
+
+        <Text style={styles.contentText}>{description}</Text>
       </View>
     </View>
   );
@@ -44,21 +43,36 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   title: {
+    paddingTop: 10,
     fontSize: 20,
-    padding: 15,
+    paddingLeft: 15,
+    backgroundColor: 'white',
     //alignSelf: 'center',
   },
+  prise: {
+    fontSize: 16,
+    paddingLeft: 15,
+    backgroundColor: 'white',
+    paddingBottom: 10,
+    //borderRadius: 1,
+  },
   postView: {
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: 15,
+    marginBottom: 15,
     //padding: 20,
     //alignItems: 'center',
     justifyContent: 'center',
   },
   contentText: {
+    backgroundColor: 'white',
     alignSelf: 'center',
-    padding: 5,
-    marginTop: 30,
+    //textAlign: 'center',
+    width: '100%',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 15,
   },
   mapModule: {
     height: '35%',
