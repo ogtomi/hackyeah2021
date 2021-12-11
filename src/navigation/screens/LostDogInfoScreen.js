@@ -13,8 +13,8 @@ import MapModule from '../../components/MapModule';
 const imageSource = require('../../images/background.jpg');
 
 const LostDogInfoScreen = ({ route, navigation }) => {
-  const { title, description, imgURL, phoneNumber, longitude, latitude } =
-    route.params;
+  const { title, description, imgURL, phoneNumber, longitude, latitude } = route.params;
+  
   return (
     <ImageBackground
       source={imageSource}

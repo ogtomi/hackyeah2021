@@ -75,7 +75,6 @@ const FindMyDogScreen = ({ navigation }) => {
                 title={item.title}
                 description={item.description}
                 image={{ uri: item.imageUri }}
-                phoneNumber={item.phoneNumber}
               />
             </TouchableOpacity>
           )}

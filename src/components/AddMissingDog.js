@@ -133,6 +133,7 @@ export default function AddMissingDog(closeModal) {
             description: formDescription,
             imageUri: image,
             latitude: location.latitude,
+            phoneNumber: formContactNumber,
             longitude: location.longitude
           };
           appendData(MISSING_DOG_KEY, newData);
