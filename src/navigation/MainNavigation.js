@@ -8,7 +8,8 @@ import AddScreen from './screens/AddScreen';
 import SettingScreen from './screens/SettingsScreen';
 import HomeScreen from './screens/HomeScreen';
 import MarketScreen from './screens/MarketScreen';
-import LostDogInfoScreenNavigator from "./CustomNavigation"
+import LostDogInfoScreenNavigator from './CustomNavigation';
+import MarkerScreenNavigator from './MarketNavigation';
 
 const homeScreen = 'Home';
 const findMyDogScreen = 'Find My Dog';
@@ -44,12 +45,14 @@ const MainNavigation = () => {
           },
         })}
       >
-        <Tab.Screen name={findMyDogScreen} component={LostDogInfoScreenNavigator} />
+        <Tab.Screen
+          name={findMyDogScreen}
+          component={LostDogInfoScreenNavigator}
+        />
         <Tab.Screen name={addScreen} component={AddScreen} />
         <Tab.Screen name={homeScreen} component={HomeScreen} />
-        <Tab.Screen name={marketScreen} component={MarketScreen} />
+        <Tab.Screen name={marketScreen} component={MarkerScreenNavigator} />
         <Tab.Screen name={settingsScreen} component={SettingScreen} />
-        
       </Tab.Navigator>
     </NavigationContainer>
   );

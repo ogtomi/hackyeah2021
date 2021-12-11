@@ -9,9 +9,9 @@ const Stack = createStackNavigator();
 const LostDogInfoScreenNavigator = () => {
   return (
     <Stack.Navigator
-        screenOptions={{
-            headerShown: false
-        }}
+      screenOptions={{
+        headerShown: false,
+      }}
     >
       <Stack.Screen name="FindMyDogScreen" component={FindMyDogScreen} />
       <Stack.Screen name="LostDogInfoScreen" component={LostDogInfoScreen} />
