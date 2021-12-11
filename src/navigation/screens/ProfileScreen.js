@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MyModal from '../../components/MyModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,18 +18,30 @@ const getData = async key => {
   }
 };
 
+const isUserLoggedIn = async () => {
+  var data = await getData(ADD_KEY)
+  if (data.email !== null) return data
+  return false
+}
+
 const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <MyModal text="Register" name="Register me" />
-      <MyModal text="Login" name="Log me" />
+      <View>
+        <MyModal text="Register" name="Register me" />
+        <MyModal text="Login" name="Log me" />
+      </View>
+      <View>
+        <Text>Profile screen </Text>
+      </View>
+      
       <TouchableOpacity
         onPress={async () => {
           var data = await getData(ADD_KEY);
           console.log(data);
-          for (var elem of data) {
-            console.log(elem);
-          }
+          // for (var elem of data) {
+          //   console.log(elem);
+          // }
         }}
       >
         <Text>READ VALUE</Text>

@@ -17,9 +17,10 @@ import MapView, {
   Polygon,
 } from 'react-native-maps';
 
-const MapModule = () => {
+const MapModule = ({ longitude, latitude }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [center, setCenter] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -61,23 +62,22 @@ const MapModule = () => {
           }
         }}
       >
-        {DATA.map((place, index) => (
-          <Polygon
-            key={index}
-            coordinates={place.polygon}
-            onPress={e => {
-              Alert.alert(place.placeName, place.description, [{ text: 'OK' }]);
-            }}
-            tappable={true}
-            fillColor={place.color}
-          />
-        ))}
+        <Circle
+          //coordinates={place.Circle}
+          center={{ latitude: latitude, longitude: longitude }}
+          radius={5000}
+          onPress={e => {
+            Alert.alert(place.placeName, place.description, [{ text: 'OK' }]);
+          }}
+          fillColor='rgba(0, 10, 100, 0.5)'
+          strokeColor="transparent"
+        />
         <Marker
-          coordinate={{ latitude: 54.539, longitude: 18.473 }}
-          draggable={false}
+          coordinate={{ latitude: latitude, longitude: longitude }}
+          draggable={true}
         >
           <Callout>
-            <Text>I'm here</Text>
+            <Text>Last seen here</Text>
           </Callout>
         </Marker>
       </MapView>
@@ -125,30 +125,15 @@ const styles = StyleSheet.create({
 });
 
 const colors = {
-  fire: 'rgba(255,0,0,0.5)',
-  zul: 'rgba(0, 80, 35, 0.5)',
-  work: 'rgba(0,0,255,0.5)',
+  work: 'rgba(0, 10, 100, 0.5)',
 };
 
 var DATA = [
   {
     id: '1',
     placeName: 'Pożar',
-    color: colors.fire,
-    polygon: [
-      {
-        latitude: 54.539,
-        longitude: 18.473,
-      },
-      {
-        latitude: 54.51764538002475,
-        longitude: 18.50596245378256,
-      },
-      {
-        latitude: 54.51667795347282,
-        longitude: 18.438833132386208,
-      },
-    ],
+    color: colors.work,
+    polygon: [{ latitude: 54.539, longitude: 18.473 }],
     description: 'W tym regionie występuje pożar. Nie zbliżaj się do lasu.',
   },
 ];
