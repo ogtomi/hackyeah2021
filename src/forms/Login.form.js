@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ADD_KEY = '@register'
+const ADD_KEY = '@register_key'
 
 const storeData = async (key, value) => {
     try {
@@ -28,13 +28,13 @@ const LoginForm = () => {
       <View>
         <TextInput
           style={styles.textInput}
-          placeholder="email"
+          placeholder="Email..."
           placeholderTextColor="#000000"
           onChangeText={email => setEmail(email)}
         />
         <TextInput
           style={styles.textInput}
-          placeholder="password"
+          placeholder="Password..."
           placeholderTextColor="#000000"
           onChangeText={password => setPassowrd(password)}
         />

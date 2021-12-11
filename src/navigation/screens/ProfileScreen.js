@@ -21,8 +21,8 @@ const getData = async key => {
 const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <MyModal text="Login" name="Log me" />
       <MyModal text="Register" name="Register me" />
+      <MyModal text="Login" name="Log me" />
       <TouchableOpacity
         onPress={async () => {
           var data = await getData(ADD_KEY);
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
+    marginTop: 30,
   },
   someText: {
     fontSize: 26,
