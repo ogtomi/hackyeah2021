@@ -25,7 +25,7 @@ const getData = async key => {
 };
 
 const FoundDogsInfoScreen = ({ route, navigation }) => {
-  const { title, descirption, imgURL, phoneNumber } = route.params;
+  const { title, description, imgURL, phoneNumber } = route.params;
 
   return (
     <ImageBackground
@@ -43,7 +43,7 @@ const FoundDogsInfoScreen = ({ route, navigation }) => {
         <View style={styles.postView}>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.contentText}>
-            <Text>{descirption}</Text>
+            <Text>{description}</Text>
           </View>
           <Text>Contact number: {phoneNumber}</Text>
         </View>

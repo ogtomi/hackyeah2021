@@ -14,8 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
+import PutPinOnaMapModule from './PutPinOnaMapModule';
+import { set } from 'react-native-reanimated';
 
-const MISSING_DOG_KEY = '@missing_dog_key'
+const MISSING_DOG_KEY = '@missing_dog_key';
 
 const appendData = async (key, value) => {
   try {
@@ -40,10 +42,8 @@ const appendData = async (key, value) => {
 export default function AddMissingDog(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
-  const [formPrice, setFormPrice] = useState('');
-
-  const [selectedCategory, setSelectedCategory] = useState();
-
+  const [formContactNumber, setFormContactNumber] = useState(null);
+  const [ location, setLocation ] = useState(null)
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -77,6 +77,9 @@ export default function AddMissingDog(closeModal) {
     }
   };
 
+  const callbackLocation = (location) => {
+    setLocation(location)
+  }
   return (
     <TouchableOpacity
       onPress={onClickFunction}
@@ -91,7 +94,9 @@ export default function AddMissingDog(closeModal) {
             style={{ width: '100%', height: 135 }}
           />
         )}
-        {!image && <Text style={styles.chooseImageText}>+ Choose image of your dog</Text>}
+        {!image && (
+          <Text style={styles.chooseImageText}>+ Choose image of your dog</Text>
+        )}
       </TouchableOpacity>
 
       <Text style={styles.labelText}>Title</Text>
@@ -110,6 +115,16 @@ export default function AddMissingDog(closeModal) {
         minHeight={200}
         onChangeText={text => setFormDescription(text)}
       />
+      <Text style={styles.labelText}>Contact number</Text>
+      <TextInput
+        style={styles.inputText}
+        keyboardType="numeric"
+        placeholder=""
+        placeholderTextColor="black"
+        onChangeText={text => setFormContactNumber(text)}
+      />
+      <Text style={styles.labelText}>Where did u see the dog?</Text>
+      <PutPinOnaMapModule callbackLocation={callbackLocation}/>
       <TouchableOpacity
         onPress={async () => {
           var newData = {
@@ -117,6 +132,8 @@ export default function AddMissingDog(closeModal) {
             title: formTitle,
             description: formDescription,
             imageUri: image,
+            latitude: location.latitude,
+            longitude: location.longitude
           };
           appendData(MISSING_DOG_KEY, newData);
           Alert.alert('OK', 'Success!');
@@ -156,6 +173,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     marginTop: 20,
+  },
+  mapModule: {
+    height: '5%',
+    justifyContent: 'flex-end',
+    bottom: 0,
+    position: 'absolute',
   },
   chooseImageText: { color: 'black' },
   picker: {

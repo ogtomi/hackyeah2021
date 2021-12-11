@@ -6,7 +6,7 @@ import MapModule from '../../components/MapModule';
 const imageSource = require('../../images/background.jpg');
 
 const LostDogInfoScreen = ({ route, navigation }) => {
-  const { title, content, imgURL, longitude, latitude } = route.params;
+  const { title, description, imgURL, phoneNumber, longitude, latitude } = route.params;
   return (
     <ImageBackground
       source={imageSource}
@@ -23,10 +23,11 @@ const LostDogInfoScreen = ({ route, navigation }) => {
         <View style={styles.postView}>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.contentText}>
-            <Text>{content}</Text>
+            <Text>{description}</Text>
           </View>
+          <Text>Contact number: {phoneNumber}</Text>
         </View>
-        <Image style={styles.dogImage} source={imgURL} />
+        <Image style={styles.dogImage} source={{ uri: imgURL }} />
         <View style={styles.mapModule}>
           <MapModule longitude={longitude} latitude={latitude} />
         </View>

@@ -1,18 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   FlatList,
   ImageBackground,
+  RefreshControl
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DogPost from '../../components/DogPost';
 import MyModal from '../../components/MyModal';
 
 const imageSource = require('../../images/background.jpg');
 
+const getData = async key => {
+  try {
+    var jsonValue = await AsyncStorage.getItem(key);
+    if (jsonValue != null) {
+      //console.log(JSON.parse(jsonValue));
+      return JSON.parse(jsonValue);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
 const FindMyDogScreen = ({ navigation }) => {
+  const MISSING_DOG_KEY = '@missing_dog_key'
+  const [DATA, setDATA] = useState('');
+  const [refreshing, setRefreshing] = useState(true);
+
+  useEffect(async () => {
+    var loadedData = await getData(MISSING_DOG_KEY);
+    setDATA(loadedData)
+    setRefreshing(false)
+  }, []);
+
+  const onRefresh = async () => {
+      var loadedData = await getData(MISSING_DOG_KEY)
+      console.log(loadedData)
+      setDATA(loadedData)
+      setRefreshing(false)
+  }
   return (
     <ImageBackground
       source={imageSource}
@@ -23,7 +53,7 @@ const FindMyDogScreen = ({ navigation }) => {
       <View style={styles.container}>
         <FlatList
           ListHeaderComponent={
-            <Text style={styles.title}>Lost dogs in your neighbourhood</Text>
+            <Text style={styles.title}>Missing dogs in your neighbourhood</Text>
           }
           style={styles.container}
           data={DATA}
@@ -33,8 +63,9 @@ const FindMyDogScreen = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate('LostDogInfoScreen', {
                   title: item.title,
-                  content: item.content,
-                  imgURL: item.imgSrc,
+                  description: item.description,
+                  imgURL: item.imageUri,
+                  phoneNumber: item.phoneNumber,
                   longitude: item.longitude,
                   latitude: item.latitude,
                 })
@@ -42,12 +73,20 @@ const FindMyDogScreen = ({ navigation }) => {
             >
               <DogPost
                 title={item.title}
-                description={item.content}
-                image={item.imgSrc}
+                description={item.description}
+                image={{ uri: item.imageUri }}
+                phoneNumber={item.phoneNumber}
               />
             </TouchableOpacity>
           )}
           keyExtractor={item => item.id}
+          refreshControl={
+            <RefreshControl
+              //refresh control used for the Pull to Refresh
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         ></FlatList>
       </View>
     </ImageBackground>
