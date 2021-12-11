@@ -16,6 +16,7 @@ import AddMissingDog from '../../components/AddMissingDog';
 import AddFoundDog from '../../components/AddFoundDog';
 import AddGiveToShelter from '../../components/AddGivetoShelter';
 import AddOfferService from '../../components/AddOfferService';
+import { LOGIN_KEY, IS_LOGGED_KEY } from '../../utils';
 
 const ADD_KEY = '@add_key';
 const MISSING_DOG_KEY = '@missing_dog_key';
@@ -79,16 +80,33 @@ const appendData = async (key, value) => {
   }
 };
 
-export default function AddScreen() {
-  const [firstData, setFirstData] = useState('');
-  const [secondData, setSecondData] = useState('');
+export default function AddScreen({ navigation }) {
+  const [isLogged, setIsLogged] = useState(false);
 
   const [openAddElement, setOpenAddElement] = useState(false);
   const [openAddMissingDog, setOpenAddMissingDog] = useState(false);
   const [openAddFoundDog, setOpenAddFoundDog] = useState(false);
   const [openGiveToShelter, setOpenGiveToShelter] = useState(false);
   const [openOfferSerive, setOpenOfferSerive] = useState(false);
-  const [scanned, setScanned] = useState(false);
+
+  useEffect(async () => {
+    //console.log(navigation);
+    const unsubscribe = navigation.addListener('focus', () => {
+      onRefresh();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  const onRefresh = async () => {
+    var newData = await getData(IS_LOGGED_KEY);
+    if (newData != null && newData.isLogged) {
+      setIsLogged(true);
+      //console.log(newData);
+    } else {
+      setIsLogged(false);
+    }
+  };
 
   return (
     <ImageBackground
@@ -97,141 +115,171 @@ export default function AddScreen() {
       resizeMode="cover"
       imageStyle={{ opacity: 0.3 }}
     >
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenAddFoundDog(true);
-          }}
-          style={styles.category1}
-        >
-          <Text style={styles.buttonText}>Found dog</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenAddMissingDog(true);
-          }}
-          style={styles.category2}
-        >
-          <Text style={styles.buttonText}>Missing dog</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenAddElement(true);
-          }}
-          style={styles.category3}
-        >
-          <Text style={styles.buttonText}>New item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenOfferSerive(true);
-          }}
-          style={styles.category1}
-        >
-          <Text style={styles.buttonText}>Offer service</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setOpenOfferSerive(true)}
-          style={styles.category3}
-        >
-          <Text style={styles.buttonText}>Give to shelter</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => AsyncStorage.clear()}
-          style={styles.category2}
-        >
-          <Text style={styles.buttonText}>Clear</Text>
-        </TouchableOpacity>
-  
-        <Modal transparent={false} visible={openAddElement}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenAddElement(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddElement
-              closeModal={() => setOpenAddElement(false)}
-            ></AddElement>
-          </ScrollView>
-        </Modal>
+      {isLogged && (
+        <View style={styles.container}>
+          <TouchableOpacity
+            onPress={() => {
+              setOpenAddFoundDog(true);
+            }}
+            style={styles.category1}
+          >
+            <Text style={styles.buttonText}>Found dog</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setOpenAddMissingDog(true);
+            }}
+            style={styles.category2}
+          >
+            <Text style={styles.buttonText}>Missing dog</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setOpenAddElement(true);
+            }}
+            style={styles.category3}
+          >
+            <Text style={styles.buttonText}>New item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setOpenOfferSerive(true);
+            }}
+            style={styles.category1}
+          >
+            <Text style={styles.buttonText}>Offer service</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setOpenOfferSerive(true)}
+            style={styles.category3}
+          >
+            <Text style={styles.buttonText}>Give to shelter</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => AsyncStorage.clear()}
+            style={styles.category2}
+          >
+            <Text style={styles.buttonText}>Clear</Text>
+          </TouchableOpacity>
 
-        {/* MISSING DOG MODAL */}
-        <Modal transparent={false} visible={openAddMissingDog}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenAddMissingDog(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddMissingDog
-              closeModal={() => setOpenAddMissingDog(false)}
-            ></AddMissingDog>
-          </ScrollView>
-        </Modal>
+          <Modal transparent={false} visible={openAddElement}>
+            <View style={styles.topButtonView}>
+              <TouchableOpacity
+                style={styles.topButton}
+                onPress={() => setOpenAddElement(false)}
+              >
+                <Text style={styles.topButtonText}>{'X'}</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView>
+              <AddElement
+                closeModal={() => setOpenAddElement(false)}
+              ></AddElement>
+            </ScrollView>
+          </Modal>
 
-        {/* FOUND DOG MODAL */}
-        <Modal transparent={false} visible={openAddFoundDog}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenAddFoundDog(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddFoundDog
-              closeModal={() => setOpenAddFoundDog(false)}
-            ></AddFoundDog>
-          </ScrollView>
-        </Modal>
-        
-        {/* OFFER SERVICE MODAL */}
-        <Modal transparent={false} visible={openOfferSerive}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenOfferSerive(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddOfferService
-              closeModal={() => setOpenOfferSerive(false)}
-            ></AddOfferService>
-          </ScrollView>
-        </Modal>
+          {/* MISSING DOG MODAL */}
+          <Modal transparent={false} visible={openAddMissingDog}>
+            <View style={styles.topButtonView}>
+              <TouchableOpacity
+                style={styles.topButton}
+                onPress={() => setOpenAddMissingDog(false)}
+              >
+                <Text style={styles.topButtonText}>{'X'}</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView>
+              <AddMissingDog
+                closeModal={() => setOpenAddMissingDog(false)}
+              ></AddMissingDog>
+            </ScrollView>
+          </Modal>
 
-        {/* GIVE TO SHELTER MODAL */}
-        <Modal transparent={false} visible={openGiveToShelter}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenGiveToShelter(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddGiveToShelter
-              closeModal={() => setOpenGiveToShelter(false)}
-            ></AddGiveToShelter>
-          </ScrollView>
-        </Modal>
-      </View>
+          {/* FOUND DOG MODAL */}
+          <Modal transparent={false} visible={openAddFoundDog}>
+            <View style={styles.topButtonView}>
+              <TouchableOpacity
+                style={styles.topButton}
+                onPress={() => setOpenAddFoundDog(false)}
+              >
+                <Text style={styles.topButtonText}>{'X'}</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView>
+              <AddFoundDog
+                closeModal={() => setOpenAddFoundDog(false)}
+              ></AddFoundDog>
+            </ScrollView>
+          </Modal>
+
+          {/* OFFER SERVICE MODAL */}
+          <Modal transparent={false} visible={openOfferSerive}>
+            <View style={styles.topButtonView}>
+              <TouchableOpacity
+                style={styles.topButton}
+                onPress={() => setOpenOfferSerive(false)}
+              >
+                <Text style={styles.topButtonText}>{'X'}</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView>
+              <AddOfferService
+                closeModal={() => setOpenOfferSerive(false)}
+              ></AddOfferService>
+            </ScrollView>
+          </Modal>
+
+          {/* GIVE TO SHELTER MODAL */}
+          <Modal transparent={false} visible={openGiveToShelter}>
+            <View style={styles.topButtonView}>
+              <TouchableOpacity
+                style={styles.topButton}
+                onPress={() => setOpenGiveToShelter(false)}
+              >
+                <Text style={styles.topButtonText}>{'X'}</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView>
+              <AddGiveToShelter
+                closeModal={() => setOpenGiveToShelter(false)}
+              ></AddGiveToShelter>
+            </ScrollView>
+          </Modal>
+        </View>
+      )}
+      {!isLogged && (
+        <View style={styles.container}>
+          <Text style={styles.title}>You have to be logged in</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('LoginScreen', {})}
+            style={styles.category1}
+          >
+            <Text style={styles.categoryText}>Login</Text>
+          </TouchableOpacity>
+          <Text style={styles.title}>Or</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('RegisterScreen', {})}
+            style={styles.category2}
+          >
+            <Text style={styles.categoryText}>Register</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  categoryText: {
+    color: 'black',
+    fontSize: 20,
+    padding: 10,
+  },
+  title: {
+    fontSize: 30,
+    color: 'black',
+    textAlign: 'center',
+  },
   topButton: {
     width: 50,
     left: 10,
