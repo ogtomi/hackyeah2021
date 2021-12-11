@@ -3,7 +3,7 @@ import MyModal from '../../components/MyModal';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 const MarketPostDetailsScreen = ({ route, navigation }) => {
-  const { title, description, category, imageUri, prise } = route.params;
+  const { title, description, category, phoneNumber, imageUri, prise } = route.params;
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -21,8 +21,10 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
       <View style={styles.postView}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.prise}>{prise}zł</Text>
-
         <Text style={styles.contentText}>{description}</Text>
+        <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.contentText}>Contact number: {phoneNumber}</Text>
+          </View>
       </View>
     </View>
   );
@@ -73,6 +75,15 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     marginTop: 15,
+  },
+  staticText: {
+    fontSize: 16,
+    alignItems: 'center',
+    textDecorationLine: 'underline',
+  },
+  numberText: {
+    fontSize: 18,
+    marginLeft: 20,
   },
   mapModule: {
     height: '35%',

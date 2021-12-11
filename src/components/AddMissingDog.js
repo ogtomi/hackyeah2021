@@ -123,7 +123,7 @@ export default function AddMissingDog(closeModal) {
         placeholderTextColor="black"
         onChangeText={text => setFormContactNumber(text)}
       />
-      <Text style={styles.labelText}>Where did u see the dog?</Text>
+      <Text style={styles.labelText}>Where did you last see the dog?</Text>
       <PutPinOnaMapModule callbackLocation={callbackLocation}/>
       <TouchableOpacity
         onPress={async () => {

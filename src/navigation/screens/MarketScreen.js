@@ -68,6 +68,7 @@ const MarketScreen = ({ route, navigation }) => {
                 description: item.description,
                 category: item.category,
                 imageUri: item.imageUri,
+                phoneNumber: item.phoneNumber,
                 prise: item.prise,
               });
             }}

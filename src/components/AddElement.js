@@ -39,7 +39,7 @@ export default function AddElement(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formPrice, setFormPrice] = useState('');
-
+  const [formContactNumber, setFormContactNumber] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState();
 
   const [image, setImage] = useState(null);
@@ -134,6 +134,14 @@ export default function AddElement(closeModal) {
         placeholderTextColor="black"
         onChangeText={text => setFormPrice(text)}
       />
+      <Text style={styles.labelText}>Contact number</Text>
+      <TextInput
+        style={styles.inputText}
+        keyboardType="numeric"
+        placeholder=""
+        placeholderTextColor="black"
+        onChangeText={text => setFormContactNumber(text)}
+      />
       <TouchableOpacity
         onPress={async () => {
           var newData = {
@@ -142,6 +150,7 @@ export default function AddElement(closeModal) {
             description: formDescription,
             category: selectedCategory,
             imageUri: image,
+            phoneNumber: formContactNumber,
             prise: formPrice,
           };
           appendData(selectedCategory, newData);
