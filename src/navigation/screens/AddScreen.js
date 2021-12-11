@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddElement from '../../components/AddElement';
 
 const ADD_KEY = '@add_key';
-const imageSource = require('../../images/background.jpg')
+const imageSource = require('../../images/background.jpg');
 
 // const storeData = async (key, value) => {
 //   try {
@@ -74,7 +74,7 @@ const appendData = async (key, value) => {
   }
 };
 
-export default function App() {
+export default function AddScreen() {
   const [firstData, setFirstData] = useState('');
   const [secondData, setSecondData] = useState('');
 
@@ -83,80 +83,81 @@ export default function App() {
 
   return (
     <ImageBackground
-    source={imageSource}
-    style={styles.backgroundImage}
-    resizeMode="cover"
-    imageStyle={{opacity: 0.3}}
-  >
-    <View style={styles.container}>
-      <TouchableOpacity
-        //onPress={}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Add found dog</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        //onPress={}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Add missing dog</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          setOpenAddElement(true);
-        }}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Add new item</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        //onPress={}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Give to shelter</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => AsyncStorage.clear()}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Clear</Text>
-      </TouchableOpacity>
-      {/* Add Missing dog Modal */}
-      <Modal transparent={false} visible={openAddElement}>
-        <View style={styles.topButtonView}>
-          <TouchableOpacity
-            style={styles.topButton}
-            onPress={() => setOpenAddElement(false)}
-          >
-            <Text style={styles.loginText}>{'<<<'}</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView>
-          <AddElement closeModal={() => setOpenAddElement(false)}></AddElement>
-        </ScrollView>
-      </Modal>
-    </View>
+      source={imageSource}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.3 }}
+    >
+      <View style={styles.container}>
+        <TouchableOpacity
+          //onPress={}
+          style={styles.loginBtn}
+        >
+          <Text style={styles.loginText}>Add found dog</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          //onPress={}
+          style={styles.loginBtn}
+        >
+          <Text style={styles.loginText}>Add missing dog</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setOpenAddElement(true);
+          }}
+          style={styles.loginBtn}
+        >
+          <Text style={styles.loginText}>Add new item</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          //onPress={}
+          style={styles.loginBtn}
+        >
+          <Text style={styles.loginText}>Give to shelter</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => AsyncStorage.clear()}
+          style={styles.loginBtn}
+        >
+          <Text style={styles.loginText}>Clear</Text>
+        </TouchableOpacity>
+        {/* Add Missing dog Modal */}
+        <Modal transparent={false} visible={openAddElement}>
+          <View style={styles.topButtonView}>
+            <TouchableOpacity
+              style={styles.topButton}
+              onPress={() => setOpenAddElement(false)}
+            >
+              <Text style={styles.topButtonText}>{'X'}</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <AddElement
+              closeModal={() => setOpenAddElement(false)}
+            ></AddElement>
+          </ScrollView>
+        </Modal>
+      </View>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   topButton: {
-    position: 'absolute',
-    top: 10,
-
-    alignSelf: 'center',
-  },
-  topButton: {
     width: 50,
     left: 10,
-    backgroundColor: 'rgb(0, 80, 35)',
-    borderRadius: 25,
+    //backgroundColor: 'rgb(0, 80, 35)',
+    borderRadius: 5,
+    borderWidth: 1,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 15,
     marginBottom: 10,
+  },
+  topButtonText: {
+    color: 'black',
+    fontSize: 20,
   },
   bgImage: {
     flex: 1,

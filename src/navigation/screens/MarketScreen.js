@@ -10,9 +10,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MarketPost from '../../components/MarketPost';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ITEM_ADD_KEY } from '../../utils';
-
-const ADD_KEY = ITEM_ADD_KEY;
+import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../../utils';
 
 const getData = async key => {
   try {
@@ -26,7 +24,9 @@ const getData = async key => {
   }
 };
 
-const MarketScreen = ({ navigation }) => {
+const MarketScreen = ({ route, navigation }) => {
+  const { category } = route.params;
+  const ADD_KEY = category;
   const [DATA, setDATA] = useState('');
   const [refreshing, setRefreshing] = useState(true);
 
@@ -46,7 +46,16 @@ const MarketScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        ListHeaderComponent={<Text style={styles.title}>Market Posts</Text>}
+        ListHeaderComponent={
+          <View style={styles.topButtonView}>
+            <TouchableOpacity
+              style={styles.topButton}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={styles.topButtonText}>{'<'}</Text>
+            </TouchableOpacity>
+          </View>
+        }
         style={styles.container}
         data={DATA}
         renderItem={({ item }) => (
@@ -82,9 +91,25 @@ export default MarketScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 15,
   },
   title: {
-    alignSelf: 'center',
+    color: 'white',
+  },
+  topButton: {
+    width: 50,
+    left: 10,
+    //backgroundColor: 'rgb(0, 80, 35)',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  topButtonText: {
+    color: 'black',
     fontSize: 20,
   },
 });

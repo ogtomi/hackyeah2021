@@ -15,8 +15,6 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
 
-const ADD_KEY = TOYS_ADD_KEY;
-
 const appendData = async (key, value) => {
   try {
     var prevData = await AsyncStorage.getItem(key);
@@ -65,7 +63,7 @@ export default function AddElement(closeModal) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [18, 9],
       quality: 1,
     });
 
@@ -82,8 +80,19 @@ export default function AddElement(closeModal) {
       style={styles.container}
       activeOpacity={1.0}
     >
+      <Text style={styles.titleText}> Add new item</Text>
+      <TouchableOpacity onPress={pickImage} style={styles.chooseImage}>
+        {image && (
+          <Image
+            source={{ uri: image }}
+            style={{ width: '100%', height: 135 }}
+          />
+        )}
+        {!image && <Text style={styles.chooseImageText}>+ Choose image</Text>}
+      </TouchableOpacity>
+
+      <Text style={styles.pickerText}> Choose category</Text>
       <View style={styles.pickerView}>
-        <Text style={styles.pickerText}> Choose from the list</Text>
         <Picker
           style={styles.picker}
           mode="dropdown"
@@ -95,33 +104,27 @@ export default function AddElement(closeModal) {
             setSelectedCategory(itemValue)
           }
         >
-          <Picker.Item label="Category 1" value="category_1" />
-          <Picker.Item label="Category 2" value="category_2" />
-          <Picker.Item label="Category 3" value="category_3" />
-          <Picker.Item label="Category 4" value="category_4" />
-          <Picker.Item label="Category 5" value="category_5" />
-          <Picker.Item label="Category 6" value="category_6" />
+          <Picker.Item label="Toys" value={TOYS_ADD_KEY} />
+          <Picker.Item label="Food" value={FOOD_ADD_KEY} />
+          <Picker.Item label="Clothes" value={CLOTHES_ADD_KEY} />
         </Picker>
       </View>
+      <Text style={styles.labelText}>Title</Text>
       <TextInput
         style={styles.inputText}
-        placeholder="Title"
+        placeholder="e.g. Barely used toys"
         placeholderTextColor="black"
         onChangeText={text => setFormTitle(text)}
       />
+      <Text style={styles.labelText}>Description</Text>
       <TextInput
         style={styles.inputText}
         multiline
-        placeholder="Description"
+        placeholder="You can add anything you want!"
         placeholderTextColor="black"
+        minHeight={200}
         onChangeText={text => setFormDescription(text)}
       />
-      <TouchableOpacity onPress={pickImage} style={styles.button}>
-        <Text style={styles.buttonText}>Choose image</Text>
-      </TouchableOpacity>
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
       <TouchableOpacity
         onPress={async () => {
           var newData = {
@@ -131,8 +134,8 @@ export default function AddElement(closeModal) {
             category: selectedCategory,
             imageUri: image,
           };
-          appendData(ADD_KEY, newData);
-          Alert.alert('OK', 'New Item added!');
+          appendData(selectedCategory, newData);
+          Alert.alert('OK', 'Success!');
           closeModal.closeModal();
         }}
         style={styles.button}
@@ -148,22 +151,47 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: "#fff",
     alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     //marginTop: 150,
   },
+  labelText: { color: 'black', textAlign: 'left', fontSize: 20 },
+  titleText: {
+    fontSize: 30,
+    color: 'black',
+    marginBottom: 10,
+    marginTop: 10,
+    //textAlign: 'center',
+  },
+  chooseImage: {
+    width: '90%',
+    backgroundColor: '#ebebeb',
+    borderRadius: 5,
+    //borderWidth: 1,
+    height: 135,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  chooseImageText: { color: 'black' },
   picker: {
-    //width: '70%',
+    //width: '75%',
     //textAlign: 'center',
     color: 'black',
   },
   pickerView: {
-    //width: '70%',
-    //width: '70%',
+    width: '90%',
+    padding: 10,
+    backgroundColor: '#ebebeb',
+    //width: '75%',
+    //width: '75%',
     color: 'black',
     //padding: 20,
     //alignItems: 'center',
     //justifyContent: 'center',
     //marginTop: 15,
+    marginBottom: 20,
+    marginTop: 20,
   },
   pickerText: {
     color: 'black',
@@ -171,21 +199,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   inputText: {
-    width: '70%',
+    width: '90%',
     //backgroundColor: 'rgb(255, 0, 0)',
     //borderRadius: 25,
     padding: 10,
     //height: 50,
     textAlign: 'center',
-    marginTop: 15,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 20,
     color: 'black',
-    borderWidth: 1,
+    backgroundColor: '#ebebeb',
+    borderRadius: 5,
   },
   button: {
-    width: '70%',
-    backgroundColor: 'rgb(255, 0, 0)',
-    borderRadius: 25,
+    width: '90%',
+    backgroundColor: '#c79200',
+    borderRadius: 5,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
