@@ -28,13 +28,13 @@ const LoginForm = () => {
       <View>
         <TextInput
           style={styles.textInput}
-          placeholder="email"
+          placeholder="Email..."
           placeholderTextColor="#000000"
           onChangeText={email => setEmail(email)}
         />
         <TextInput
           style={styles.textInput}
-          placeholder="password"
+          placeholder="Password..."
           placeholderTextColor="#000000"
           onChangeText={password => setPassowrd(password)}
         />
