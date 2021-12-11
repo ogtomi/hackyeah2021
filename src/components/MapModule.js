@@ -74,7 +74,7 @@ const MapModule = ({ longitude, latitude }) => {
         />
         <Marker
           coordinate={{ latitude: latitude, longitude: longitude }}
-          draggable={true}
+          draggable={false}
         >
           <Callout>
             <Text>Last seen here</Text>

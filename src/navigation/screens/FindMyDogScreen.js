@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     marginBottom: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    //fontWeight: 'bold',
   },
   backgroundImage: {
     flex: 1,
