@@ -10,16 +10,18 @@ import MarketScreen from './screens/MarketScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import LostDogInfoScreenNavigator from './CustomNavigation';
 import MarkerScreenNavigator from './MarketNavigation';
+import LostFoundDogNavigation from './LostFoundDogNavigation';
 import { CredentialsContext } from '../components/CredentialsContext';
 
 const homeScreen = 'Home';
-const findMyDogScreen = 'Find My Dog';
+const findMyDogScreen = 'Lost Dogs';
 const profileScreen = 'My profile';
 const addScreen = 'Add';
 const marketScreen = 'Market';
+const foundDogScreen = 'Found dogs';
 
 const Tab = createBottomTabNavigator();
-const imageSource = require('../images/background.jpg')
+const imageSource = require('../images/background.jpg');
 
 const MainNavigation = () => {
   return (
@@ -53,6 +55,10 @@ const MainNavigation = () => {
               name={findMyDogScreen}
               component={LostDogInfoScreenNavigator}
             />
+            <Tab.Screen
+              name={foundDogScreen}
+              component={LostFoundDogNavigation}
+            />
             <Tab.Screen name={addScreen} component={AddScreen} />
             <Tab.Screen name={homeScreen} component={HomeScreen} />
             <Tab.Screen name={marketScreen} component={MarkerScreenNavigator} />
@@ -81,5 +87,5 @@ const styles = StyleSheet.create({
     // height: '100%',
     // width: '100%',
     opacity: 0.1,
-  }
+  },
 });

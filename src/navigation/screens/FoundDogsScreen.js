@@ -1,29 +1,23 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ImageBackground,
-} from 'react-native';
+import { StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DogPost from '../../components/DogPost';
 import MyModal from '../../components/MyModal';
 
-const imageSource = require('../../images/background.jpg');
+const imageSource = require('../../images/background.jpg')
 
-const FindMyDogScreen = ({ navigation }) => {
+const FoundDogsScreen = ({ navigation }) => {
   return (
     <ImageBackground
       source={imageSource}
       style={styles.backgroundImage}
       resizeMode="cover"
-      imageStyle={{ opacity: 0.3 }}
+      imageStyle={{opacity: 0.3}}
     >
       <View style={styles.container}>
         <FlatList
           ListHeaderComponent={
-            <Text style={styles.title}>Lost dogs in your neighbourhood</Text>
+            <Text style={styles.title}>Found dogs in your neighbourhood</Text>
           }
           style={styles.container}
           data={DATA}
@@ -31,14 +25,14 @@ const FindMyDogScreen = ({ navigation }) => {
             <TouchableOpacity
               style={styles.container}
               onPress={() =>
-                navigation.navigate('LostDogInfoScreen', {
+                navigation.navigate('FoundDogsInfoScreen', {
                   title: item.title,
                   content: item.content,
                   imgURL: item.imgSrc,
                   longitude: item.longitude,
                   latitude: item.latitude,
                 })
-              }
+             }
             >
               <DogPost
                 title={item.title}
@@ -49,12 +43,15 @@ const FindMyDogScreen = ({ navigation }) => {
           )}
           keyExtractor={item => item.id}
         ></FlatList>
+        <TouchableOpacity>
+
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
 };
 
-export default FindMyDogScreen;
+export default FoundDogsScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoggedProfile = ({ name, surname, email }) => {
   return (
+
     <View>
       <TouchableOpacity
         onPress={() => {
