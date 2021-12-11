@@ -20,7 +20,9 @@ const FindMyDogScreen = ({ navigation }) => {
               navigation.navigate('LostDogInfoScreen', {
                 title: item.title,
                 content: item.content,
-                imgURL: item.imgSrc
+                imgURL: item.imgSrc,
+                longitude: item.longitude,
+                latitude: item.latitude,
               })
             }
           >
@@ -51,6 +53,8 @@ const DATA = [
     title: 'Dalmatyńczyk o imieniu Damian',
     content: 'Zgubił się podczas ostatniego spaceru',
     imgSrc: {uri: 'https://i.kinja-img.com/gawker-media/image/upload/c_scale,f_auto,fl_progressive,pg_1,q_80,w_800/etw5ahwcfttkqikxbfg3.jpg'},
+    latitude: 54.539, 
+    longitude: 18.473 
   },
   {
     id: '2',

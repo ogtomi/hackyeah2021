@@ -71,10 +71,8 @@ const MapModule = () => {
             onPress={e => {
               Alert.alert(place.placeName, place.description, [{ text: 'OK' }]);
             }}
-            tappable={true}
             fillColor={place.color}
             strokeColor="transparent"
-            transparent={true}
           />
         ))}
         <Marker
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
 });
 
 const colors = {
-  work: 'rgba(0, 50, 100, 0.3)',
+  work: 'rgba(0, 10, 100, 0.5)',
 };
 
 var DATA = [

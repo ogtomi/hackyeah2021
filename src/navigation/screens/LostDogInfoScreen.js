@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import MapModule from '../../components/MapModule';
 
 const LostDogInfoScreen = ({ route, navigation }) => {
-  const { title, content, imgURL } = route.params;
+  const { title, content, imgURL, longitude, latitude } = route.params;
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('FindMyDogScreen')}>
@@ -18,7 +18,7 @@ const LostDogInfoScreen = ({ route, navigation }) => {
       </View>
       <Image style={styles.dogImage} source={imgURL} />
       <View style={styles.mapModule}>
-        <MapModule />
+        <MapModule longitude={longitude} latitude={latitude}/>
       </View>
     </View>
   );
