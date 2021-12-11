@@ -1,26 +1,37 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
 import MapModule from '../../components/MapModule';
+
+const imageSource = require('../../images/background.jpg');
 
 const LostDogInfoScreen = ({ route, navigation }) => {
   const { title, content, imgURL, longitude, latitude } = route.params;
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('FindMyDogScreen')}>
-        <Text style={styles.backText}>Go back</Text>
-      </TouchableOpacity>
-      <View style={styles.postView}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.contentText}>
-          <Text>{content}</Text>
+    <ImageBackground
+      source={imageSource}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.3 }}
+    >
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('FindMyDogScreen')}
+        >
+          <Text style={styles.backText}>Go back</Text>
+        </TouchableOpacity>
+        <View style={styles.postView}>
+          <Text style={styles.title}>{title}</Text>
+          <View style={styles.contentText}>
+            <Text>{content}</Text>
+          </View>
+        </View>
+        <Image style={styles.dogImage} source={imgURL} />
+        <View style={styles.mapModule}>
+          <MapModule longitude={longitude} latitude={latitude} />
         </View>
       </View>
-      <Image style={styles.dogImage} source={imgURL} />
-      <View style={styles.mapModule}>
-        <MapModule longitude={longitude} latitude={latitude}/>
-      </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -38,17 +49,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     alignSelf: 'center',
+    fontWeight: 'bold'
   },
   postView: {
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: 20,
+    marginBottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   contentText: {
-    marginTop: 30,
+    marginTop: 20,
   },
   mapModule: {
     height: '35%',
@@ -60,5 +72,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: '30%',
     width: '70%',
+  },
+  backgroundImage: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
 });
