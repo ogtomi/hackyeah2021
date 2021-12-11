@@ -1,24 +1,26 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import MapModule from '../../components/MapModule';
 
 const MarketPostDetailsScreen = ({ route, navigation }) => {
-  const { title, content, imgURL } = route.params;
+  const { title, description, category, imageUri } = route.params;
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('FindMyDogScreen')}>
+      <TouchableOpacity onPress={() => navigation.navigate('MarketScreen')}>
         <Text style={styles.backText}>Go back</Text>
       </TouchableOpacity>
       <View style={styles.postView}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.contentText}>
-          <Text>{content}</Text>
+          <Text>{description}</Text>
+          <Text>{category}</Text>
         </View>
-      </View>
-      <Image style={styles.dogImage} source={imgURL} />
-      <View style={styles.mapModule}>
-        <MapModule />
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: 200, height: 200 }}
+          />
+        )}
       </View>
     </View>
   );

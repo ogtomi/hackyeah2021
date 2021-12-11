@@ -62,12 +62,6 @@ const MarketScreen = ({ navigation }) => {
             }
           >
             <MarketPost title={item.title} imageUri={item.imageUri} />
-            {/* {item.imageUri && (
-              <Image
-                source={{ uri: item.imageUri }}
-                style={{ width: 200, height: 200 }}
-              />
-            )} */}
           </TouchableOpacity>
         )}
         refreshControl={
