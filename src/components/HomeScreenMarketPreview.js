@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
 import MarketPost from '../components/MarketPost';
 
-const ALL_KEYS = [TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY];
+const ALL_KEYS = [TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY, '@service_key'];
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -108,6 +108,7 @@ const HomeScreenMarketPreview = ({ navigation }) => {
                 category: item.category,
                 imageUri: item.imageUri,
                 prise: item.prise,
+                phoneNumber: item.phoneNumber,
                 fromHome: true,
               });
             }}

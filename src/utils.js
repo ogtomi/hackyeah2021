@@ -8,6 +8,7 @@ const NAMES = {
   TOYS_ADD_KEY: 'Toys',
   FOOD_ADD_KEY: 'Food',
   CLOTHES_ADD_KEY: 'Clothes',
+  '@service_key': 'Service',
 };
 
 export {
