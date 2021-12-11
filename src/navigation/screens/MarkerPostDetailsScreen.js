@@ -1,6 +1,7 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { NAMES } from '../../utils';
 
 const MarketPostDetailsScreen = ({ route, navigation }) => {
   const { title, description, category, phoneNumber, imageUri, prise } = route.params;
@@ -8,7 +9,14 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.topButton}
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          if (fromHome) {
+            navigation.pop();
+            navigation.navigate('Home');
+          } else {
+            navigation.goBack();
+          }
+        }}
       >
         <Text style={styles.topButtonText}>{'<'}</Text>
       </TouchableOpacity>

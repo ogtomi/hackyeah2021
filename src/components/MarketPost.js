@@ -25,17 +25,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.4)',
     //alignItems: 'center',
     borderRadius: 10,
-    margin: 10,
+    //margin: 10,
     padding: 10,
+    //minWidth: '70%',
   },
   title: {
-    marginTop: 10,
+    //marginTop: 10,
     fontSize: 20,
   },
   priseText: { color: 'black', fontSize: 15 },
 
   content: {
-    marginTop: 10,
+    //marginTop: 10,
     fontSize: 10,
   },
 });
