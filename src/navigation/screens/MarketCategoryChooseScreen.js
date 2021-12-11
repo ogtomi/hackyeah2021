@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../../utils';
 
 const SERVICE_ADD_KEY = '@service_key';
+const FAVOURITES_KEY = '@favourites_key';
 const imageSource = require('../../images/background.jpg');
 
 const MarketCategoryChooseScreen = ({ navigation }) => {
@@ -96,7 +97,7 @@ const MarketCategoryChooseScreen = ({ navigation }) => {
               header: 'Services',
             })
           }
-          style={styles.category1}
+          style={styles.category2}
         >
           <Ionicons
             style={styles.icon}
@@ -104,6 +105,23 @@ const MarketCategoryChooseScreen = ({ navigation }) => {
             name={'clipboard-outline'}
           ></Ionicons>
           <Text style={styles.categoryText}>Services</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('MarketScreen', {
+              category: FAVOURITES_KEY,
+              header: 'Favourites',
+            })
+          }
+          style={styles.category1}
+        >
+          <Ionicons
+            style={styles.icon}
+            size={50}
+            name={'star-outline'}
+          ></Ionicons>
+          <Text style={styles.categoryText}>Favourites</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

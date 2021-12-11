@@ -11,6 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LOGIN_KEY, IS_LOGGED_KEY } from '../utils';
 
 const storeData = async (key, value) => {
@@ -22,7 +23,7 @@ const storeData = async (key, value) => {
   }
 };
 
-export default function LoggedProfile({ loginData, onRefresh }) {
+export default function LoggedProfile({ loginData, onRefresh, navigation }) {
   const onClickFunction = () => {
     Keyboard.dismiss();
     //console.log(loginData);
@@ -72,6 +73,11 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
     //justifyContent: 'center',
   },
+  categoryText: {
+    color: 'black',
+    fontSize: 20,
+    padding: 10,
+  },
   topButton: {
     backgroundColor: '#ffd6d6',
     borderRadius: 5,
@@ -82,6 +88,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 15,
     marginBottom: 10,
+  },
+  category1: {
+    width: '100%',
+    padding: 15,
+    //height: 50,
+    //alignItems: 'center',
+    backgroundColor: '#fcfce1',
+    //justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+
+    flexDirection: 'row',
   },
   topButtonText: {
     color: 'black',

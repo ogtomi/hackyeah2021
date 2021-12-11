@@ -131,7 +131,7 @@ export default function AddScreen() {
           <Text style={styles.buttonText}>Offer service</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setOpenOfferSerive(true)}
+          onPress={() => setOpenGiveToShelter(true)}
           style={styles.category3}
         >
           <Text style={styles.buttonText}>Give to shelter</Text>
@@ -142,7 +142,7 @@ export default function AddScreen() {
         >
           <Text style={styles.buttonText}>Clear</Text>
         </TouchableOpacity>
-  
+
         <Modal transparent={false} visible={openAddElement}>
           <View style={styles.topButtonView}>
             <TouchableOpacity
@@ -192,7 +192,7 @@ export default function AddScreen() {
             ></AddFoundDog>
           </ScrollView>
         </Modal>
-        
+
         {/* OFFER SERVICE MODAL */}
         <Modal transparent={false} visible={openOfferSerive}>
           <View style={styles.topButtonView}>

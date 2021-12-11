@@ -9,8 +9,27 @@ import {
   Image,
 } from 'react-native';
 import MapModule from '../../components/MapModule';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const imageSource = require('../../images/background.jpg');
+const FAVOURITES_KEY = '@favourites_key';
+
+const appendData = async (key, value) => {
+  try {
+    var prevData = await AsyncStorage.getItem(key);
+    if (prevData != null) {
+      prevData = JSON.parse(prevData);
+      prevData.push(value);
+      const jsonValue = JSON.stringify(prevData);
+      await AsyncStorage.setItem(key, jsonValue);
+    } else {
+      const jsonValue = JSON.stringify([value]);
+      await AsyncStorage.setItem(key, jsonValue);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
 
 const LostDogInfoScreen = ({ route, navigation }) => {
   const {
@@ -45,7 +64,18 @@ const LostDogInfoScreen = ({ route, navigation }) => {
           <Text style={styles.topButtonText}>{'<'}</Text>
         </TouchableOpacity>
         <View style={styles.postView}>
-          <Text style={styles.title}>{title}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.title}>{title}</Text>
+            <TouchableOpacity>
+              <View style={{ marginLeft: 10 }}>
+                <Ionicons
+                  style={styles.icon}
+                  size={20}
+                  name={'heart-outline'}
+                ></Ionicons>
+              </View>
+            </TouchableOpacity>
+          </View>
           <View>
             <Text style={styles.contentText}>{description}</Text>
           </View>
