@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AddScreen from './screens/AddScreen';
@@ -19,9 +19,11 @@ const addScreen = 'Add';
 const marketScreen = 'Market';
 
 const Tab = createBottomTabNavigator();
+const imageSource = require('../images/background.jpg')
 
 const MainNavigation = () => {
   return (
+    <ImageBackground source={imageSource} style={styles.backgroundImage} resizeMode='cover'>
     <CredentialsContext.Consumer>
       {({ storedCredentials }) => (
         <NavigationContainer>
@@ -60,6 +62,7 @@ const MainNavigation = () => {
         </NavigationContainer>
       )}
     </CredentialsContext.Consumer>
+    </ImageBackground>
   );
 };
 
@@ -75,4 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
   },
+  backgroundImage: {
+    flex: 1,
+    // height: '100%',
+    // width: '100%',
+  }
 });

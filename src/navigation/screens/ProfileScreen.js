@@ -18,25 +18,23 @@ const getData = async key => {
   }
 };
 
-const isUserLogged = (email, password) => {
-  const loginData = getData();
-  if (email === loginData.email && password === loginData.password) return true;
-  return false;
-};
+const isUserLoggedIn = async () => {
+  var data = await getData(ADD_KEY)
+  if (data.email !== null) return data
+  return false
+}
 
 const ProfileScreen = ({ navigation }) => {
-  // useEffect(() => {
-  //   if (isUserLogged()) {
-  //     console.log(true)
-  //   }
-  // })
   return (
     <View style={styles.container}>
       <View>
         <MyModal text="Register" name="Register me" />
         <MyModal text="Login" name="Log me" />
       </View>
-
+      <View>
+        <Text>Profile screen </Text>
+      </View>
+      
       <TouchableOpacity
         onPress={async () => {
           var data = await getData(ADD_KEY);

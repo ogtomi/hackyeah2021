@@ -26,7 +26,7 @@ const FindMyDogScreen = ({ navigation }) => {
               })
             }
           >
-            <DogPost title={item.title} content={item.content} />
+            <DogPost title={item.title} content={item.content} image={item.imgSrc}/>
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     fontSize: 20,
+    fontWeight: 'bold'
   },
 });
 
