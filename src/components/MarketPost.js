@@ -12,7 +12,7 @@ const MarketPost = props => {
         />
       )}
       <Text style={styles.title}>{props.title}</Text>
-      <Text style={styles.priseText}>Price: {props.prise}zł</Text>
+      {props.prise == 'free' ? <Text style={styles.prise}>Free</Text> : <Text style={styles.prise}>{props.prise} zł</Text>}
     </TouchableOpacity>
   );
 };

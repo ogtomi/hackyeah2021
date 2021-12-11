@@ -10,6 +10,7 @@ import {
   Keyboard,
   Alert,
 } from 'react-native';
+import { Checkbox } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
@@ -38,9 +39,11 @@ const appendData = async (key, value) => {
 export default function AddElement(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
-  const [formPrice, setFormPrice] = useState('');
+  const [formPrice, setFormPrice] = useState('free');
   const [formContactNumber, setFormContactNumber] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const [checked, setChecked] = useState(false);
 
   const [image, setImage] = useState(null);
 
@@ -126,14 +129,6 @@ export default function AddElement(closeModal) {
         minHeight={200}
         onChangeText={text => setFormDescription(text)}
       />
-      <Text style={styles.labelText}>Price</Text>
-      <TextInput
-        style={styles.inputText}
-        keyboardType="numeric"
-        placeholder="0"
-        placeholderTextColor="black"
-        onChangeText={text => setFormPrice(text)}
-      />
       <Text style={styles.labelText}>Contact number</Text>
       <TextInput
         style={styles.inputText}
@@ -142,6 +137,29 @@ export default function AddElement(closeModal) {
         placeholderTextColor="black"
         onChangeText={text => setFormContactNumber(text)}
       />
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.labelText}>Price</Text>
+        <Checkbox
+          status={checked ? 'checked' : 'indeterminate'}
+          onPress={() => {
+            setChecked(!checked);
+          }}
+          color="red"
+          disabled={false}
+        />
+      </View>
+      {checked ? (
+        <TextInput
+          style={styles.inputText}
+          keyboardType="numeric"
+          placeholder="0"
+          placeholderTextColor="black"
+          onChangeText={text => setFormPrice(text)}
+        />
+      ) : (
+        <Text>Give item for free</Text>
+      )}
+
       <TouchableOpacity
         onPress={async () => {
           var newData = {
@@ -180,6 +198,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     //textAlign: 'center',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkbox: {
+    alignSelf: 'center',
   },
   chooseImage: {
     width: '90%',

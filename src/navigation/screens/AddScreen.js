@@ -15,6 +15,7 @@ import AddElement from '../../components/AddElement';
 import AddMissingDog from '../../components/AddMissingDog';
 import AddFoundDog from '../../components/AddFoundDog';
 import AddGiveToShelter from '../../components/AddGivetoShelter';
+import AddOfferService from '../../components/AddOfferService';
 
 const ADD_KEY = '@add_key';
 const MISSING_DOG_KEY = '@missing_dog_key';
@@ -86,6 +87,7 @@ export default function AddScreen() {
   const [openAddMissingDog, setOpenAddMissingDog] = useState(false);
   const [openAddFoundDog, setOpenAddFoundDog] = useState(false);
   const [openGiveToShelter, setOpenGiveToShelter] = useState(false);
+  const [openOfferSerive, setOpenOfferSerive] = useState(false);
   const [scanned, setScanned] = useState(false);
 
   return (
@@ -121,8 +123,16 @@ export default function AddScreen() {
           <Text style={styles.buttonText}>New item</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setOpenGiveToShelter(true)}
+          onPress={() => {
+            setOpenOfferSerive(true);
+          }}
           style={styles.category1}
+        >
+          <Text style={styles.buttonText}>Offer service</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setOpenOfferSerive(true)}
+          style={styles.category3}
         >
           <Text style={styles.buttonText}>Give to shelter</Text>
         </TouchableOpacity>
@@ -182,7 +192,24 @@ export default function AddScreen() {
             ></AddFoundDog>
           </ScrollView>
         </Modal>
-          
+        
+        {/* OFFER SERVICE MODAL */}
+        <Modal transparent={false} visible={openOfferSerive}>
+          <View style={styles.topButtonView}>
+            <TouchableOpacity
+              style={styles.topButton}
+              onPress={() => setOpenOfferSerive(false)}
+            >
+              <Text style={styles.topButtonText}>{'X'}</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <AddOfferService
+              closeModal={() => setOpenOfferSerive(false)}
+            ></AddOfferService>
+          </ScrollView>
+        </Modal>
+
         {/* GIVE TO SHELTER MODAL */}
         <Modal transparent={false} visible={openGiveToShelter}>
           <View style={styles.topButtonView}>
