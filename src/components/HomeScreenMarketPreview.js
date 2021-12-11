@@ -100,7 +100,7 @@ const HomeScreenMarketPreview = ({ navigation }) => {
           <TouchableOpacity
             style={styles.container}
             onPress={() => {
-              console.log(navigation);
+              //console.log(navigation);
 
               navigation.navigate('MarkerPostDetailsScreen', {
                 title: item.title,

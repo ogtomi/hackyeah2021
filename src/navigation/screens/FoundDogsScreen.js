@@ -1,11 +1,18 @@
-import React, { useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList, ImageBackground, RefreshControl } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ImageBackground,
+  RefreshControl,
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DogPost from '../../components/DogPost';
 import MyModal from '../../components/MyModal';
 
-const imageSource = require('../../images/background.jpg')
+const imageSource = require('../../images/background.jpg');
 
 const getData = async key => {
   try {
@@ -20,66 +27,69 @@ const getData = async key => {
 };
 
 const FoundDogsScreen = ({ navigation }) => {
-  const FOUND_DOG_KEY = '@found_dog_key'
+  const FOUND_DOG_KEY = '@found_dog_key';
   const [DATA, setDATA] = useState('');
   const [refreshing, setRefreshing] = useState(true);
 
+  // useEffect(async () => {
+  //   var loadedData = await getData(FOUND_DOG_KEY);
+  //   setDATA(loadedData);
+  //   setRefreshing(false);
+  // }, []);
+
   useEffect(async () => {
-    var loadedData = await getData(FOUND_DOG_KEY);
-    setDATA(loadedData)
-    setRefreshing(false)
-  }, []);
+    //console.log(navigation);
+    const unsubscribe = navigation.addListener('focus', () => {
+      onRefresh();
+      //console.log('tuuu');
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const onRefresh = async () => {
-      var loadedData = await getData(FOUND_DOG_KEY)
-      console.log(loadedData)
-      setDATA(loadedData)
-      setRefreshing(false)
-  }
+    var loadedData = await getData(FOUND_DOG_KEY);
+    //console.log(loadedData);
+    setDATA(loadedData);
+    setRefreshing(false);
+  };
   return (
-    <ImageBackground
-      source={imageSource}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-      imageStyle={{opacity: 0.3}}
-    >
-      <View style={styles.container}>
-        <FlatList
-          ListHeaderComponent={
-            <Text style={styles.title}>Found dogs in your neighbourhood</Text>
-          }
-          style={styles.container}
-          data={DATA}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.container}
-              onPress={() =>
-                navigation.navigate('FoundDogsInfoScreen', {
-                  title: item.title,
-                  description: item.description,
-                  imgURL: item.imageUri,
-                  phoneNumber: item.phoneNumber
-                })
-             }
-            >
-              <DogPost
-                title={item.title}
-                description={item.description}
-                image={{ uri: item.imageUri }}
-              />
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item.id}
-          refreshControl={
-            <RefreshControl
-              //refresh control used for the Pull to Refresh
-              refreshing={refreshing}
-              onRefresh={onRefresh}
+    <View style={styles.container}>
+      <FlatList
+        ListHeaderComponent={
+          <Text style={styles.title}>Found dogs in your neighbourhood</Text>
+        }
+        style={styles.container}
+        data={DATA}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() =>
+              navigation.navigate('FoundDogsInfoScreen', {
+                title: item.title,
+                description: item.description,
+                imgURL: item.imageUri,
+                phoneNumber: item.phoneNumber,
+              })
+            }
+          >
+            <DogPost
+              title={item.title}
+              description={item.description}
+              image={{ uri: item.imageUri }}
             />
-          }
-        ></FlatList>
-      </View>
-    </ImageBackground>
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item.id}
+        refreshControl={
+          <RefreshControl
+            //refresh control used for the Pull to Refresh
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      ></FlatList>
+    </View>
   );
 };
 
@@ -88,10 +98,11 @@ export default FoundDogsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 20,
   },
   title: {
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 30,
     marginBottom: 20,
     fontSize: 22,
     //fontWeight: 'bold',

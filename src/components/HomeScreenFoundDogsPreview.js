@@ -1,16 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   FlatList,
+  ImageBackground,
   RefreshControl,
-  Image,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import MarketPost from '../../components/MarketPost';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../../utils';
+import DogPost from '../components/DogPost';
+import MyModal from '../components/MyModal';
+
+const imageSource = require('../images/background.jpg');
 
 const getData = async key => {
   try {
@@ -24,61 +26,55 @@ const getData = async key => {
   }
 };
 
-const MarketScreen = ({ route, navigation }) => {
-  const { category, header } = route.params;
-  const ADD_KEY = category;
+const HomeScreenFoundDogsPreview = ({ navigation }) => {
+  const FOUND_DOG_KEY = '@found_dog_key';
   const [DATA, setDATA] = useState('');
   const [refreshing, setRefreshing] = useState(true);
 
   useEffect(async () => {
-    var loadedData = await getData(ADD_KEY);
+    var loadedData = await getData(FOUND_DOG_KEY);
     setDATA(loadedData);
     setRefreshing(false);
-    //console.log(loadedData);
   }, []);
 
   const onRefresh = async () => {
-    var loadedData = await getData(ADD_KEY);
+    var loadedData = await getData(FOUND_DOG_KEY);
+    console.log(loadedData);
     setDATA(loadedData);
     setRefreshing(false);
-    //console.log(loadedData);
   };
   return (
     <View style={styles.container}>
       <FlatList
-        ListHeaderComponent={
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={styles.topButtonText}>{'<'}</Text>
-            </TouchableOpacity>
-            <Text style={styles.header}>{header}</Text>
-          </View>
-        }
+        horizontal
+        // ListHeaderComponent={
+        //   <Text style={styles.title}>Found dogs in your neighbourhood</Text>
+        // }
         style={styles.container}
         data={DATA}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.container}
-            onPress={() => {
-              navigation.navigate('MarkerPostDetailsScreen', {
+            onPress={() =>
+              navigation.navigate('FoundDogsInfoScreen', {
                 title: item.title,
                 description: item.description,
-                category: item.category,
-                imageUri: item.imageUri,
-                prise: item.prise,
-              });
-            }}
+                imgURL: item.imageUri,
+                phoneNumber: item.phoneNumber,
+                fromHome: true,
+              })
+            }
           >
-            <MarketPost
-              title={item.title}
-              imageUri={item.imageUri}
-              prise={item.prise}
-            />
+            <View style={styles.touchable}>
+              <DogPost
+                title={item.title}
+                description={item.description}
+                image={{ uri: item.imageUri }}
+              />
+            </View>
           </TouchableOpacity>
         )}
+        keyExtractor={item => item.id}
         refreshControl={
           <RefreshControl
             //refresh control used for the Pull to Refresh
@@ -86,45 +82,28 @@ const MarketScreen = ({ route, navigation }) => {
             onRefresh={onRefresh}
           />
         }
-        keyExtractor={item => item.id}
       ></FlatList>
     </View>
   );
 };
 
-export default MarketScreen;
+export default HomeScreenFoundDogsPreview;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 15,
   },
+  touchable: { flex: 1, minWidth: 200, maxWidth: 200, marginRight: 10 },
   title: {
-    color: 'white',
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    fontSize: 22,
+    //fontWeight: 'bold',
   },
-  header: {
-    color: 'black',
-    //textAlign: 'center',
-    fontSize: 30,
-    padding: 10,
-    left: '100%',
-    //alignItems: 'center',
-  },
-  topButtonView: { flexDirection: 'row', alignItems: 'center' },
-  topButton: {
-    width: 50,
-    left: 10,
-    //backgroundColor: 'rgb(0, 80, 35)',
-    borderRadius: 5,
-    borderWidth: 1,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 15,
-    marginBottom: 10,
-  },
-  topButtonText: {
-    color: 'black',
-    fontSize: 20,
+  backgroundImage: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
 });

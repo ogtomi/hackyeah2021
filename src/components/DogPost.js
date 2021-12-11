@@ -2,48 +2,37 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import LostDogInfo from '../navigation/screens/LostDogInfoScreen';
 
-const DogPost = props => {
+const DogsPost = props => {
   return (
     <TouchableOpacity style={styles.container}>
-      <View style={{ flexDirection: 'row' }}>
-        <Image
-          style={styles.thumbnailImage}
-          source={props.image}
-        />
-        <View style={styles.textView}>
-          <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.content}>{props.description}</Text>
-        </View>
-      </View>
+      <Image source={props.image} style={{ width: '100%', height: 135 }} />
+
+      <Text style={styles.title}>{props.title}</Text>
+      <Text style={styles.priseText}>{props.description}</Text>
     </TouchableOpacity>
   );
 };
 
-export default DogPost;
+export default DogsPost;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.4)',
+    backgroundColor: 'white',
     //alignItems: 'center',
-    borderRadius: 0,
-    marginRight: 60,
-    padding: 5,
+    borderRadius: 10,
+    //margin: 10,
+    padding: 10,
+    //minWidth: '70%',
   },
   title: {
-    marginTop: 3,
+    //marginTop: 10,
     fontSize: 20,
   },
+  priseText: { color: 'black', fontSize: 15 },
+
   content: {
-    marginTop: 5,
-    fontSize: 15,
+    //marginTop: 10,
+    fontSize: 10,
   },
-  thumbnailImage: {
-    width: 100,
-    height: 100,
-    marginRight: 7,
-    marginTop: 5,
-  },
-  textView: {
-  }
 });

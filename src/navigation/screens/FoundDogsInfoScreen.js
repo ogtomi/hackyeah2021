@@ -25,35 +25,39 @@ const getData = async key => {
 };
 
 const FoundDogsInfoScreen = ({ route, navigation }) => {
-  const { title, description, imgURL, phoneNumber } = route.params;
+  const { title, description, imgURL, phoneNumber, fromHome } = route.params;
 
   return (
-    <ImageBackground
-      source={imageSource}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-      imageStyle={{ opacity: 0.3 }}
-    >
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.topButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.topButtonText}>{'<'}</Text>
-        </TouchableOpacity>
-        <View style={styles.postView}>
-          <Text style={styles.title}>{title}</Text>
-          <View>
-            <Text style={styles.contentText}>{description}</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.staticText}>Contact number:</Text>
-            <Text style={styles.numberText}>{phoneNumber}</Text>
-          </View>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.topButton}
+        onPress={() => {
+          if (fromHome) {
+            navigation.pop();
+            navigation.navigate('Home');
+          } else {
+            navigation.goBack();
+          }
+        }}
+      >
+        <Text style={styles.topButtonText}>{'<'}</Text>
+      </TouchableOpacity>
+
+      {imgURL && (
+        <Image
+          style={{ width: '100%', height: '30%', alignSelf: 'center' }}
+          source={{ uri: imgURL }}
+        />
+      )}
+      <View style={styles.postView}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.contentText}>{description}</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.staticText}>Contact number:</Text>
+          <Text style={styles.numberText}>{phoneNumber}</Text>
         </View>
-        <Image style={styles.dogImage} source={{ uri: imgURL }} />
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -62,6 +66,7 @@ export default FoundDogsInfoScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
     //alignItems: 'center',
     //justifyContent: 'center',
   },
@@ -70,28 +75,42 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   title: {
-    fontSize: 24,
-    alignSelf: 'center',
-    //fontWeight: 'bold',
+    paddingTop: 10,
+    fontSize: 20,
+    paddingLeft: 15,
+    backgroundColor: 'white',
+    //alignSelf: 'center',
   },
   postView: {
-    marginBottom: 10,
-    alignItems: 'center',
+    marginTop: 15,
+    marginBottom: 15,
+    //padding: 20,
+    //alignItems: 'center',
     justifyContent: 'center',
   },
   staticText: {
     fontSize: 16,
+    paddingLeft: 15,
     alignItems: 'center',
     textDecorationLine: 'underline',
+    backgroundColor: 'white',
   },
   contentText: {
-    marginTop: 20,
-    fontSize: 20,
-    marginBottom: 20,
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    //textAlign: 'center',
+    width: '100%',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 15,
   },
   numberText: {
     fontSize: 18,
-    marginLeft: 20,
+    paddingLeft: 20,
+    backgroundColor: 'white',
+    width: '100%',
   },
   mapModule: {
     height: '35%',

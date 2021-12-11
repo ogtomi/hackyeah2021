@@ -5,7 +5,7 @@ import {
   View,
   FlatList,
   ImageBackground,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -27,68 +27,71 @@ const getData = async key => {
 };
 
 const FindMyDogScreen = ({ navigation }) => {
-  const MISSING_DOG_KEY = '@missing_dog_key'
+  const MISSING_DOG_KEY = '@missing_dog_key';
   const [DATA, setDATA] = useState('');
   const [refreshing, setRefreshing] = useState(true);
 
+  // useEffect(async () => {
+  //   var loadedData = await getData(MISSING_DOG_KEY);
+  //   setDATA(loadedData)
+  //   setRefreshing(false)
+  // }, []);
+
   useEffect(async () => {
-    var loadedData = await getData(MISSING_DOG_KEY);
-    setDATA(loadedData)
-    setRefreshing(false)
-  }, []);
+    //console.log(navigation);
+    const unsubscribe = navigation.addListener('focus', () => {
+      onRefresh();
+      //console.log('tuuu');
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const onRefresh = async () => {
-      var loadedData = await getData(MISSING_DOG_KEY)
-      console.log(loadedData)
-      setDATA(loadedData)
-      setRefreshing(false)
-  }
+    var loadedData = await getData(MISSING_DOG_KEY);
+    //console.log(loadedData);
+    setDATA(loadedData);
+    setRefreshing(false);
+  };
   return (
-    <ImageBackground
-      source={imageSource}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-      imageStyle={{ opacity: 0.3 }}
-    >
-      <View style={styles.container}>
-        <FlatList
-          ListHeaderComponent={
-            <Text style={styles.title}>Missing dogs in your neighbourhood</Text>
-          }
-          style={styles.container}
-          data={DATA}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.container}
-              onPress={() =>
-                navigation.navigate('LostDogInfoScreen', {
-                  title: item.title,
-                  description: item.description,
-                  imgURL: item.imageUri,
-                  phoneNumber: item.phoneNumber,
-                  longitude: item.longitude,
-                  latitude: item.latitude,
-                })
-              }
-            >
-              <DogPost
-                title={item.title}
-                description={item.description}
-                image={{ uri: item.imageUri }}
-              />
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item.id}
-          refreshControl={
-            <RefreshControl
-              //refresh control used for the Pull to Refresh
-              refreshing={refreshing}
-              onRefresh={onRefresh}
+    <View style={styles.container}>
+      <FlatList
+        ListHeaderComponent={
+          <Text style={styles.title}>Missing dogs in your neighbourhood</Text>
+        }
+        style={styles.container}
+        data={DATA}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() =>
+              navigation.navigate('LostDogInfoScreen', {
+                title: item.title,
+                description: item.description,
+                imgURL: item.imageUri,
+                phoneNumber: item.phoneNumber,
+                longitude: item.longitude,
+                latitude: item.latitude,
+              })
+            }
+          >
+            <DogPost
+              title={item.title}
+              description={item.description}
+              image={{ uri: item.imageUri }}
             />
-          }
-        ></FlatList>
-      </View>
-    </ImageBackground>
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item.id}
+        refreshControl={
+          <RefreshControl
+            //refresh control used for the Pull to Refresh
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      ></FlatList>
+    </View>
   );
 };
 

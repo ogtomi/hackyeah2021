@@ -4,7 +4,15 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { NAMES } from '../../utils';
 
 const MarketPostDetailsScreen = ({ route, navigation }) => {
-  const { title, description, category, phoneNumber, imageUri, prise } = route.params;
+  const {
+    title,
+    description,
+    category,
+    phoneNumber,
+    imageUri,
+    prise,
+    fromHome,
+  } = route.params;
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -31,8 +39,8 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
         <Text style={styles.prise}>{prise}zł</Text>
         <Text style={styles.contentText}>{description}</Text>
         <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.contentText}>Contact number: {phoneNumber}</Text>
-          </View>
+          <Text style={styles.contentText}>Contact number: {phoneNumber}</Text>
+        </View>
       </View>
     </View>
   );

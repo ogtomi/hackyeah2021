@@ -5,9 +5,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreenMarketPreview from '../../components/HomeScreenMarketPreview';
+import HomeScreenFoundDogsPreview from '../../components/HomeScreenFoundDogsPreview';
+import HomeScreenLostDogsPreview from '../../components/HomeScreenLostDogsPreview';
 
 const ADD_KEY = '@add_element_key';
 
@@ -88,14 +91,14 @@ export default function HomeScreen({ navigation }) {
       <HomeScreenMarketPreview
         navigation={navigation}
       ></HomeScreenMarketPreview>
-      <Text style={styles.header}>Recent items in the Market</Text>
-      <HomeScreenMarketPreview
+      <Text style={styles.header}>Found dogs</Text>
+      <HomeScreenFoundDogsPreview
         navigation={navigation}
-      ></HomeScreenMarketPreview>
-      <Text style={styles.header}>Recent items in the Market</Text>
-      <HomeScreenMarketPreview
+      ></HomeScreenFoundDogsPreview>
+      <Text style={styles.header}>Lost dogs</Text>
+      <HomeScreenLostDogsPreview
         navigation={navigation}
-      ></HomeScreenMarketPreview>
+      ></HomeScreenLostDogsPreview>
     </View>
   );
 }
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     padding: 10,
 
     color: 'black',
-    textAlign: 'left',
+    textAlign: 'center',
     fontSize: 20,
     //left: 0,
     //padding: 10,

@@ -13,8 +13,16 @@ import MapModule from '../../components/MapModule';
 const imageSource = require('../../images/background.jpg');
 
 const LostDogInfoScreen = ({ route, navigation }) => {
-  const { title, description, imgURL, phoneNumber, longitude, latitude } = route.params;
-  
+  const {
+    title,
+    description,
+    imgURL,
+    phoneNumber,
+    longitude,
+    latitude,
+    fromHome,
+  } = route.params;
+
   return (
     <ImageBackground
       source={imageSource}
@@ -25,7 +33,14 @@ const LostDogInfoScreen = ({ route, navigation }) => {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.topButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            if (fromHome) {
+              navigation.pop();
+              navigation.navigate('Home');
+            } else {
+              navigation.goBack();
+            }
+          }}
         >
           <Text style={styles.topButtonText}>{'<'}</Text>
         </TouchableOpacity>
