@@ -142,6 +142,7 @@ export default function AddElement(closeModal) {
             description: formDescription,
             category: selectedCategory,
             imageUri: image,
+            prise: formPrice,
           };
           appendData(selectedCategory, newData);
           Alert.alert('OK', 'Success!');

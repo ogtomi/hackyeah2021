@@ -12,6 +12,7 @@ const MarketPost = props => {
         />
       )}
       <Text style={styles.title}>{props.title}</Text>
+      <Text style={styles.priseText}>Price: {props.prise}</Text>
     </TouchableOpacity>
   );
 };
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgba(255,255,255,0.4)',
-    alignItems: 'center',
+    //alignItems: 'center',
     borderRadius: 10,
     margin: 10,
     padding: 10,
@@ -31,6 +32,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 20,
   },
+  priseText: { color: 'black', fontSize: 15 },
+
   content: {
     marginTop: 10,
     fontSize: 10,

@@ -28,6 +28,7 @@ const MarketCategoryChooseScreen = ({ navigation }) => {
           onPress={() =>
             navigation.navigate('MarketScreen', {
               category: TOYS_ADD_KEY,
+              header: 'Toys',
             })
           }
           style={styles.category1}
@@ -43,6 +44,7 @@ const MarketCategoryChooseScreen = ({ navigation }) => {
           onPress={() =>
             navigation.navigate('MarketScreen', {
               category: FOOD_ADD_KEY,
+              header: 'Food',
             })
           }
           style={styles.category2}
@@ -58,6 +60,7 @@ const MarketCategoryChooseScreen = ({ navigation }) => {
           onPress={() =>
             navigation.navigate('MarketScreen', {
               category: CLOTHES_ADD_KEY,
+              header: 'Clothes',
             })
           }
           style={styles.category3}

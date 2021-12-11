@@ -25,7 +25,7 @@ const getData = async key => {
 };
 
 const MarketScreen = ({ route, navigation }) => {
-  const { category } = route.params;
+  const { category, header } = route.params;
   const ADD_KEY = category;
   const [DATA, setDATA] = useState('');
   const [refreshing, setRefreshing] = useState(true);
@@ -54,6 +54,7 @@ const MarketScreen = ({ route, navigation }) => {
             >
               <Text style={styles.topButtonText}>{'<'}</Text>
             </TouchableOpacity>
+            <Text style={styles.header}>{header}</Text>
           </View>
         }
         style={styles.container}
@@ -61,16 +62,21 @@ const MarketScreen = ({ route, navigation }) => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.container}
-            onPress={() =>
+            onPress={() => {
               navigation.navigate('MarkerPostDetailsScreen', {
                 title: item.title,
                 description: item.description,
                 category: item.category,
                 imageUri: item.imageUri,
-              })
-            }
+                prise: item.prise,
+              });
+            }}
           >
-            <MarketPost title={item.title} imageUri={item.imageUri} />
+            <MarketPost
+              title={item.title}
+              imageUri={item.imageUri}
+              prise={item.prise}
+            />
           </TouchableOpacity>
         )}
         refreshControl={
@@ -96,6 +102,15 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
   },
+  header: {
+    color: 'black',
+    //textAlign: 'center',
+    fontSize: 30,
+    padding: 10,
+    left: '100%',
+    //alignItems: 'center',
+  },
+  topButtonView: { flexDirection: 'row', alignItems: 'center' },
   topButton: {
     width: 50,
     left: 10,
