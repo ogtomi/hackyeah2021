@@ -7,6 +7,8 @@ import {
   TextInput,
   Image,
   Platform,
+  Keyboard,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
@@ -75,7 +77,7 @@ const appendData = async (key, value) => {
   }
 };
 
-export default function AddElement() {
+export default function AddElement(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
 
@@ -95,6 +97,10 @@ export default function AddElement() {
     })();
   }, []);
 
+  const onClickFunction = () => {
+    Keyboard.dismiss();
+  };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -111,7 +117,11 @@ export default function AddElement() {
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={onClickFunction}
+      style={styles.container}
+      activeOpacity={1.0}
+    >
       <View style={styles.pickerView}>
         <Text style={styles.pickerText}> Choose from the list</Text>
         <Picker
@@ -162,12 +172,14 @@ export default function AddElement() {
             imageUri: image,
           };
           appendData(ADD_KEY, newData);
+          Alert.alert('OK', 'New Item added!');
+          closeModal.closeModal();
         }}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -177,7 +189,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "#fff",
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 150,
+    //marginTop: 150,
   },
   picker: {
     //width: '70%',

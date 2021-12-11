@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   Modal,
+  ScrollView,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -108,21 +109,40 @@ export default function App() {
       </TouchableOpacity>
       {/* Add Missing dog Modal */}
       <Modal transparent={false} visible={openAddElement}>
-        <AddElement></AddElement>
-        <View style={styles.container}>
+        <View style={styles.topButtonView}>
           <TouchableOpacity
-            style={styles.loginBtn}
+            style={styles.topButton}
             onPress={() => setOpenAddElement(false)}
           >
             <Text style={styles.loginText}>{'<<<'}</Text>
           </TouchableOpacity>
         </View>
+        <ScrollView>
+          <AddElement closeModal={() => setOpenAddElement(false)}></AddElement>
+        </ScrollView>
       </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  topButton: {
+    position: 'absolute',
+    top: 10,
+
+    alignSelf: 'center',
+  },
+  topButton: {
+    width: 50,
+    left: 10,
+    backgroundColor: 'rgb(0, 80, 35)',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+  },
   bgImage: {
     flex: 1,
     flexDirection: 'row',
@@ -151,7 +171,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "#fff",
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
+    //marginTop: 40,
   },
   logo: {
     fontWeight: 'bold',
