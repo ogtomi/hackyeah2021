@@ -10,9 +10,9 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MarketPost from '../../components/MarketPost';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AddElement from '../../components/AddElement';
+import { ITEM_ADD_KEY } from '../../utils';
 
-const ADD_KEY = '@add_element_key';
+const ADD_KEY = ITEM_ADD_KEY;
 
 const getData = async key => {
   try {
@@ -34,14 +34,14 @@ const MarketScreen = ({ navigation }) => {
     var loadedData = await getData(ADD_KEY);
     setDATA(loadedData);
     setRefreshing(false);
-    console.log(loadedData);
+    //console.log(loadedData);
   }, []);
 
   const onRefresh = async () => {
     var loadedData = await getData(ADD_KEY);
     setDATA(loadedData);
     setRefreshing(false);
-    console.log(loadedData);
+    //console.log(loadedData);
   };
   return (
     <View style={styles.container}>

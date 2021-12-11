@@ -13,49 +13,9 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
+import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
 
-const ADD_KEY = '@add_element_key';
-
-// const storeData = async (key, value) => {
-//   try {
-//     await AsyncStorage.setItem(key, value);
-//   } catch (e) {
-//     // saving error
-//   }
-// };
-
-// const storeData = async (key, value) => {
-//   try {
-//     const jsonValue = JSON.stringify(value);
-//     await AsyncStorage.setItem(key, jsonValue);
-//   } catch (e) {
-//     // saving error
-//   }
-// };
-
-// const getData = async key => {
-//   try {
-//     const value = await AsyncStorage.getItem(key);
-//     console.log(value);
-//     if (value !== null) {
-//       // value previously stored
-//     }
-//   } catch (e) {
-//     // error reading value
-//   }
-// };
-
-// const getData = async key => {
-//   try {
-//     var jsonValue = await AsyncStorage.getItem(key);
-//     if (jsonValue != null) {
-//       //console.log(JSON.parse(jsonValue));
-//       return JSON.parse(jsonValue);
-//     }
-//   } catch (e) {
-//     // error reading value
-//   }
-// };
+const ADD_KEY = TOYS_ADD_KEY;
 
 const appendData = async (key, value) => {
   try {
