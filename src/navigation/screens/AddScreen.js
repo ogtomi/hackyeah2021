@@ -88,6 +88,12 @@ export default function App() {
         <Text style={styles.loginText}>Add found dog</Text>
       </TouchableOpacity>
       <TouchableOpacity
+        //onPress={}
+        style={styles.loginBtn}
+      >
+        <Text style={styles.loginText}>Add missing dog</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => {
           setOpenAddElement(true);
         }}

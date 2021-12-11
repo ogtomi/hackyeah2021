@@ -17,7 +17,7 @@ import MapView, {
   Polygon,
 } from 'react-native-maps';
 
-const MapModule = () => {
+const MapModule = ({ longitude, latitude }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [center, setCenter] = useState(null);
@@ -62,21 +62,18 @@ const MapModule = () => {
           }
         }}
       >
-        {DATA.map((place, index) => (
-          <Circle
-            key={index}
-            //coordinates={place.Circle}
-            center={{ latitude: 54.539, longitude: 18.473 }}
-            radius={5000}
-            onPress={e => {
-              Alert.alert(place.placeName, place.description, [{ text: 'OK' }]);
-            }}
-            fillColor={place.color}
-            strokeColor="transparent"
-          />
-        ))}
+        <Circle
+          //coordinates={place.Circle}
+          center={{ latitude: latitude, longitude: longitude }}
+          radius={5000}
+          onPress={e => {
+            Alert.alert(place.placeName, place.description, [{ text: 'OK' }]);
+          }}
+          fillColor='rgba(0, 10, 100, 0.5)'
+          strokeColor="transparent"
+        />
         <Marker
-          coordinate={{ latitude: 54.539, longitude: 18.473 }}
+          coordinate={{ latitude: latitude, longitude: longitude }}
           draggable={true}
         >
           <Callout>
