@@ -16,61 +16,61 @@ const imageSource = require('../../images/background.jpg');
 
 const MarketCategoryChooseScreen = ({ navigation }) => {
   return (
-    // <ImageBackground
-    //   source={imageSource}
-    //   style={styles.backgroundImage}
-    //   resizeMode="cover"
-    //   imageStyle={{ opacity: 0.3 }}
-    // >
-    <View style={styles.container}>
-      <Text style={styles.title}>Choose category</Text>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('MarketScreen', {
-            category: TOYS_ADD_KEY,
-          })
-        }
-        style={styles.category1}
-      >
-        <Ionicons
-          style={styles.icon}
-          size={50}
-          name={'baseball-outline'}
-        ></Ionicons>
-        <Text style={styles.categoryText}>Toys</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('MarketScreen', {
-            category: FOOD_ADD_KEY,
-          })
-        }
-        style={styles.category2}
-      >
-        <Ionicons
-          style={styles.icon}
-          size={50}
-          name={'pizza-outline'}
-        ></Ionicons>
-        <Text style={styles.categoryText}>Food</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('MarketScreen', {
-            category: CLOTHES_ADD_KEY,
-          })
-        }
-        style={styles.category3}
-      >
-        <Ionicons
-          style={styles.icon}
-          size={50}
-          name={'shirt-outline'}
-        ></Ionicons>
-        <Text style={styles.categoryText}>Clothes</Text>
-      </TouchableOpacity>
-    </View>
-    // </ImageBackground>
+    <ImageBackground
+      source={imageSource}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.3 }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Choose category</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('MarketScreen', {
+              category: TOYS_ADD_KEY,
+            })
+          }
+          style={styles.category1}
+        >
+          <Ionicons
+            style={styles.icon}
+            size={50}
+            name={'baseball-outline'}
+          ></Ionicons>
+          <Text style={styles.categoryText}>Toys</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('MarketScreen', {
+              category: FOOD_ADD_KEY,
+            })
+          }
+          style={styles.category2}
+        >
+          <Ionicons
+            style={styles.icon}
+            size={50}
+            name={'pizza-outline'}
+          ></Ionicons>
+          <Text style={styles.categoryText}>Food</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('MarketScreen', {
+              category: CLOTHES_ADD_KEY,
+            })
+          }
+          style={styles.category3}
+        >
+          <Ionicons
+            style={styles.icon}
+            size={50}
+            name={'shirt-outline'}
+          ></Ionicons>
+          <Text style={styles.categoryText}>Clothes</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 

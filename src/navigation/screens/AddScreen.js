@@ -91,35 +91,35 @@ export default function AddScreen() {
       <View style={styles.container}>
         <TouchableOpacity
           //onPress={}
-          style={styles.loginBtn}
+          style={styles.category1}
         >
-          <Text style={styles.loginText}>Add found dog</Text>
+          <Text style={styles.buttonText}>Found dog</Text>
         </TouchableOpacity>
         <TouchableOpacity
           //onPress={}
-          style={styles.loginBtn}
+          style={styles.category2}
         >
-          <Text style={styles.loginText}>Add missing dog</Text>
+          <Text style={styles.buttonText}>Missing dog</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             setOpenAddElement(true);
           }}
-          style={styles.loginBtn}
+          style={styles.category3}
         >
-          <Text style={styles.loginText}>Add new item</Text>
+          <Text style={styles.buttonText}>New item</Text>
         </TouchableOpacity>
         <TouchableOpacity
           //onPress={}
-          style={styles.loginBtn}
+          style={styles.category1}
         >
-          <Text style={styles.loginText}>Give to shelter</Text>
+          <Text style={styles.buttonText}>Give to shelter</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => AsyncStorage.clear()}
-          style={styles.loginBtn}
+          style={styles.category2}
         >
-          <Text style={styles.loginText}>Clear</Text>
+          <Text style={styles.buttonText}>Clear</Text>
         </TouchableOpacity>
         {/* Add Missing dog Modal */}
         <Modal transparent={false} visible={openAddElement}>
@@ -208,18 +208,36 @@ const styles = StyleSheet.create({
     height: 50,
     color: 'rgb(0, 80, 35)',
   },
-  loginBtn: {
-    width: 220,
-    backgroundColor: 'rgb(0, 80, 35)',
-    borderRadius: 25,
-    height: 50,
-    alignItems: 'center',
+  category1: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#fcfce1',
     justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 15,
-    marginBottom: 10,
+    flexDirection: 'row',
   },
-  loginText: {
-    color: 'white',
+  category2: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#e1fcfa',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+    flexDirection: 'row',
+  },
+  category3: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#f4e1fc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+    flexDirection: 'row',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: 'black',
   },
   backgroundImage: {
     flex: 1,

@@ -5,13 +5,13 @@ import LostDogInfo from '../navigation/screens/LostDogInfoScreen';
 const MarketPost = props => {
   return (
     <TouchableOpacity style={styles.container}>
-      <Text style={styles.title}>{props.title}</Text>
       {props.imageUri && (
         <Image
           source={{ uri: props.imageUri }}
-          style={{ width: 200, height: 200 }}
+          style={{ width: '100%', height: 135 }}
         />
       )}
+      <Text style={styles.title}>{props.title}</Text>
     </TouchableOpacity>
   );
 };
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    fontSize: 10,
+    fontSize: 20,
   },
   content: {
     marginTop: 10,

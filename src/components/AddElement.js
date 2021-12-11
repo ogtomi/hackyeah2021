@@ -38,6 +38,7 @@ const appendData = async (key, value) => {
 export default function AddElement(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
+  const [formPrice, setFormPrice] = useState('');
 
   const [selectedCategory, setSelectedCategory] = useState();
 
@@ -124,6 +125,14 @@ export default function AddElement(closeModal) {
         placeholderTextColor="black"
         minHeight={200}
         onChangeText={text => setFormDescription(text)}
+      />
+      <Text style={styles.labelText}>Price</Text>
+      <TextInput
+        style={styles.inputText}
+        keyboardType="numeric"
+        placeholder="0"
+        placeholderTextColor="black"
+        onChangeText={text => setFormPrice(text)}
       />
       <TouchableOpacity
         onPress={async () => {
