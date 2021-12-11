@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native';
 import MyModal from '../../components/MyModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoggedProfile from '../../components/LoggedProfile';
 import NotloggedProfile from '../../components/NotloggedProfile';
 
 const ADD_KEY = '@register_key';
+const imageSource = require('../../images/background.jpg');
 
 const getData = async key => {
   try {
@@ -29,7 +30,7 @@ const ProfileScreen = ({ navigation }) => {
     setDATA(loadedData);
     setRefreshing(false);
     console.log(loadedData);
-  }, []);
+  }, [DATA]);
 
   const onRefresh = async () => {
     var loadedData = await getData(ADD_KEY);
@@ -39,21 +40,28 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* <View>
-        <MyModal text="Register" name="Register me" />
-        <MyModal text="Login" name="Log me" />
-      </View> */}
-      <View>
-        <Text>
-          {DATA !== undefined ? (
-            <LoggedProfile name={DATA.name} surname={DATA.surname} email={DATA.email}/>
-          ) : (
-            <NotloggedProfile />
-          )}
-        </Text>
+    <ImageBackground
+      source={imageSource}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.3 }}
+    >
+      <View style={styles.container}>
+        <View>
+          <Text>
+            {DATA !== undefined ? (
+              <LoggedProfile
+                name={DATA.name}
+                surname={DATA.surname}
+                email={DATA.email}
+              />
+            ) : (
+              <NotloggedProfile />
+            )}
+          </Text>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -69,5 +77,10 @@ const styles = StyleSheet.create({
   someText: {
     fontSize: 26,
     fontWeight: 'bold',
+  },
+  backgroundImage: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
 });

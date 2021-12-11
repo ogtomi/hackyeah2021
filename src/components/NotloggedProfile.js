@@ -5,6 +5,11 @@ import MyModal from './MyModal';
 const NotloggedProfile = () => {
   return (
     <View>
+      <View style={styles.welcomeView}>
+        <Text style={styles.welcomeText}>
+          Login or register to fully discover the app potential
+        </Text>
+      </View>
       <MyModal text="Login" name="Log me" />
       <MyModal text="Register" name="Register me" />
     </View>
@@ -14,18 +19,14 @@ const NotloggedProfile = () => {
 export default NotloggedProfile;
 
 const styles = StyleSheet.create({
-  logOut: {
-    padding: 10,
-    elevation: 2,
-    width: '100%',
-    height: 40,
-    backgroundColor: '#2196F3',
+
+  welcomeText: {
+    marginTop: 75,
+    marginBottom: 75,
+    fontSize: 32,    
+  },
+  welcomeView: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  logOutText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
+  }
 });

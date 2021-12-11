@@ -6,7 +6,9 @@ const LoggedProfile = ({ name, surname, email }) => {
   return (
     <View>
       <TouchableOpacity
-        onPress={() => AsyncStorage.clear()}
+        onPress={() => {
+            AsyncStorage.clear()
+        }}
         style={styles.logOut}
       >
         <Text style={styles.logOutText}>Log out</Text>

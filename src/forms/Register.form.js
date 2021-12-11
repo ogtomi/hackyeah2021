@@ -16,7 +16,6 @@ const RegisterForm = (closeModal) => {
   const [password, setPassowrd] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext)
 
@@ -51,9 +50,9 @@ const RegisterForm = (closeModal) => {
       </View>
       <TouchableOpacity
         onPress={async () => {
-          var newData = { name: name, surname: surname, email: email, password: password };
-          setIsLoggedIn(true)
+          var newData = { name: name, surname: surname, email: email, password: password};
           storeData(ADD_KEY, newData);
+
           closeModal.closeModal();
         }}
         style={styles.loginBtn}
