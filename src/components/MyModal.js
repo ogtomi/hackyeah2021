@@ -7,6 +7,7 @@ import {
   View,
   Dimensions,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import LoginForm from '../forms/Login.form';
 import RegisterForm from  '../forms/Register.form'
@@ -36,12 +37,12 @@ const MyModal = props => {
           </View>
         </View>
       </Modal>
-      <Pressable
+      <TouchableOpacity
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.textStyle}>{props.text}</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -50,13 +51,13 @@ export default MyModal
 
 const styles = StyleSheet.create({
   centeredView: {
-    flex: 1,
+    //flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginBottom: 5
   },
   modalView: {
-    margin: 20,
+    //margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -71,9 +72,11 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 10,
-    elevation: 2
+    elevation: 2,
+    width: 400,
+    height: 40
   },
   buttonOpen: {
     backgroundColor: "#F194FF",

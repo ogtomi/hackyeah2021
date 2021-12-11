@@ -57,7 +57,7 @@ const RegisterForm = () => {
       <TouchableOpacity
         onPress={async () => {
           var newData = { name: name, surname: surname, email: email, password: password };
-          storeData(ADD_KEY, newData);
+          append(ADD_KEY, newData);
         }}
         style={styles.loginBtn}
       >

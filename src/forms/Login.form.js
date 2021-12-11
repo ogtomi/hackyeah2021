@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ADD_KEY = '@register'
+const ADD_KEY = '@register_key'
 
 const storeData = async (key, value) => {
     try {

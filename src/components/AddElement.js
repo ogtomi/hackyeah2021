@@ -162,6 +162,7 @@ export default function AddElement() {
             imageUri: image,
           };
           appendData(ADD_KEY, newData);
+          console.log("asdfs")
         }}
         style={styles.button}
       >
