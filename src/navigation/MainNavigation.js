@@ -23,7 +23,6 @@ const imageSource = require('../images/background.jpg')
 
 const MainNavigation = () => {
   return (
-    <ImageBackground source={imageSource} style={styles.backgroundImage} resizeMode='cover'>
     <CredentialsContext.Consumer>
       {({ storedCredentials }) => (
         <NavigationContainer>
@@ -62,7 +61,6 @@ const MainNavigation = () => {
         </NavigationContainer>
       )}
     </CredentialsContext.Consumer>
-    </ImageBackground>
   );
 };
 
@@ -82,5 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     // height: '100%',
     // width: '100%',
+    opacity: 0.1,
   }
 });

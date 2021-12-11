@@ -1,37 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DogPost from '../../components/DogPost';
 import MyModal from '../../components/MyModal';
 
+const imageSource = require('../../images/background.jpg')
+
 const FindMyDogScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <FlatList
-        ListHeaderComponent={
-          <Text style={styles.title}>Lost dogs in your neighbourhood</Text>
-        }
-        style={styles.container}
-        data={DATA}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.container}
-            onPress={() =>
-              navigation.navigate('LostDogInfoScreen', {
-                title: item.title,
-                content: item.content,
-                imgURL: item.imgSrc,
-                longitude: item.longitude,
-                latitude: item.latitude,
-              })
-            }
-          >
-            <DogPost title={item.title} content={item.content} image={item.imgSrc}/>
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item.id}
-      ></FlatList>
-    </View>
+    <ImageBackground
+      source={imageSource}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={{opacity: 0.3}}
+    >
+      <View style={styles.container}>
+        <FlatList
+          ListHeaderComponent={
+            <Text style={styles.title}>Lost dogs in your neighbourhood</Text>
+          }
+          style={styles.container}
+          data={DATA}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.container}
+              onPress={() =>
+                navigation.navigate('LostDogInfoScreen', {
+                  title: item.title,
+                  content: item.content,
+                  imgURL: item.imgSrc,
+                  longitude: item.longitude,
+                  latitude: item.latitude,
+                })
+              }
+            >
+              <DogPost
+                title={item.title}
+                content={item.content}
+                image={item.imgSrc}
+              />
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.id}
+        ></FlatList>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -43,8 +56,15 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 20,
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+  },
+  backgroundImage: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
 });
 
@@ -53,9 +73,11 @@ const DATA = [
     id: '1',
     title: 'Dalmatyńczyk o imieniu Damian',
     content: 'Zgubił się podczas ostatniego spaceru',
-    imgSrc: {uri: 'https://i.kinja-img.com/gawker-media/image/upload/c_scale,f_auto,fl_progressive,pg_1,q_80,w_800/etw5ahwcfttkqikxbfg3.jpg'},
-    latitude: 54.539, 
-    longitude: 18.473 
+    imgSrc: {
+      uri: 'https://i.kinja-img.com/gawker-media/image/upload/c_scale,f_auto,fl_progressive,pg_1,q_80,w_800/etw5ahwcfttkqikxbfg3.jpg',
+    },
+    latitude: 54.539,
+    longitude: 18.473,
   },
   {
     id: '2',

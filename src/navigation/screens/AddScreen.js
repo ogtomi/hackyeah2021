@@ -7,12 +7,14 @@ import {
   TextInput,
   Modal,
   ScrollView,
+  ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AddElement from '../../components/AddElement';
 
 const ADD_KEY = '@add_key';
+const imageSource = require('../../images/background.jpg')
 
 // const storeData = async (key, value) => {
 //   try {
@@ -80,6 +82,12 @@ export default function App() {
   const [scanned, setScanned] = useState(false);
 
   return (
+    <ImageBackground
+    source={imageSource}
+    style={styles.backgroundImage}
+    resizeMode="cover"
+    imageStyle={{opacity: 0.3}}
+  >
     <View style={styles.container}>
       <TouchableOpacity
         //onPress={}
@@ -128,6 +136,7 @@ export default function App() {
         </ScrollView>
       </Modal>
     </View>
+    </ImageBackground>
   );
 }
 
@@ -210,5 +219,10 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: 'white',
+  },
+  backgroundImage: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
   },
 });
