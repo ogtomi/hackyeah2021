@@ -12,6 +12,8 @@ import MarketPost from '../../components/MarketPost';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../../utils';
 
+const ALL_KEYS = [TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY, '@service_key'];
+
 const getData = async key => {
   try {
     var jsonValue = await AsyncStorage.getItem(key);
@@ -24,14 +26,65 @@ const getData = async key => {
   }
 };
 
+const getAllData = async keys => {
+  try {
+    var DATA = [];
+    for (var key of keys) {
+      var jsonValue = await AsyncStorage.getItem(key);
+      jsonValue = JSON.parse(jsonValue);
+      if (jsonValue != null) {
+        for (var elem of jsonValue) {
+          if (elem != null) {
+            var lastId = DATA.length;
+            elem.id = lastId;
+
+            DATA.push(elem);
+          }
+        }
+      }
+    }
+
+    return DATA;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const searchAndGetData = async word => {
+  var allData = await getAllData(ALL_KEYS);
+
+  var DATA = [];
+  word = word.toLowerCase();
+  for (var elem of allData) {
+    if (elem != null) {
+      var title = elem.title;
+      title = title.toLowerCase();
+      title = title.split(' ');
+      for (var singleWord of title) {
+        console.log(singleWord);
+        if (singleWord == word) {
+          DATA.push(elem);
+          break;
+        }
+      }
+    }
+  }
+
+  return DATA;
+};
+
 const MarketScreen = ({ route, navigation }) => {
-  const { category, header } = route.params;
+  const { category, header, word } = route.params;
   const ADD_KEY = category;
   const [DATA, setDATA] = useState('');
   const [refreshing, setRefreshing] = useState(true);
 
   useEffect(async () => {
-    var loadedData = await getData(ADD_KEY);
+    if (category == 'ALL') {
+      var loadedData = await searchAndGetData(word);
+    } else {
+      var loadedData = await getData(ADD_KEY);
+    }
     setDATA(loadedData);
     setRefreshing(false);
     //console.log(loadedData);

@@ -12,10 +12,11 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../../utils';
 
-const SERVICE_ADD_KEY = "@service_key"
+const SERVICE_ADD_KEY = '@service_key';
 const imageSource = require('../../images/background.jpg');
 
 const MarketCategoryChooseScreen = ({ navigation }) => {
+  const [searchWord, setSearchWord] = useState('');
   return (
     <ImageBackground
       source={imageSource}
@@ -25,6 +26,21 @@ const MarketCategoryChooseScreen = ({ navigation }) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Choose category</Text>
+
+        <TextInput
+          style={styles.inputText}
+          placeholder="Search..."
+          placeholderTextColor="black"
+          onChangeText={text => setSearchWord(text)}
+          onSubmitEditing={event =>
+            navigation.navigate('MarketScreen', {
+              category: 'ALL',
+              header: 'Search',
+              word: searchWord,
+            })
+          }
+          onS
+        />
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('MarketScreen', {
@@ -163,4 +179,19 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  inputText: {
+    width: '100%',
+    //backgroundColor: 'rgb(255, 0, 0)',
+    //borderRadius: 25,
+    padding: 10,
+    //height: 50,
+    //textAlign: 'center',
+    //alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    color: 'black',
+    backgroundColor: 'white',
+    borderWidth: 1,
+  },
+  labelText: { color: 'black', textAlign: 'left', fontSize: 20 },
 });
