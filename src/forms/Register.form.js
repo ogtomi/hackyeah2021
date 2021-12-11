@@ -11,7 +11,7 @@ import { CredentialsContext } from '../components/CredentialsContext';
 
 const ADD_KEY = '@register_key';
 
-const RegisterForm = () => {
+const RegisterForm = (closeModal) => {
   const [email, setEmail] = useState('');
   const [password, setPassowrd] = useState('');
   const [name, setName] = useState('');
@@ -54,6 +54,7 @@ const RegisterForm = () => {
           var newData = { name: name, surname: surname, email: email, password: password };
           setIsLoggedIn(true)
           storeData(ADD_KEY, newData);
+          closeModal.closeModal();
         }}
         style={styles.loginBtn}
       >
