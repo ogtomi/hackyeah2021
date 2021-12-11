@@ -15,7 +15,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
 
-const MISSING_DOG_KEY = '@missing_dog_key'
+const FOUND_DOG_KEY = '@found_dog_key'
 
 const appendData = async (key, value) => {
   try {
@@ -37,14 +37,11 @@ const appendData = async (key, value) => {
   }
 };
 
-export default function AddMissingDog(closeModal) {
+export default function AddFoundDog(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
-  const [formPrice, setFormPrice] = useState('');
-
-  const [selectedCategory, setSelectedCategory] = useState();
-
   const [image, setImage] = useState(null);
+  const [formContactNumber, setFormContactNumber] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -83,7 +80,7 @@ export default function AddMissingDog(closeModal) {
       style={styles.container}
       activeOpacity={1.0}
     >
-      <Text style={styles.titleText}> Add missing dog</Text>
+      <Text style={styles.titleText}> Add found dog</Text>
       <TouchableOpacity onPress={pickImage} style={styles.chooseImage}>
         {image && (
           <Image
@@ -91,7 +88,7 @@ export default function AddMissingDog(closeModal) {
             style={{ width: '100%', height: 135 }}
           />
         )}
-        {!image && <Text style={styles.chooseImageText}>+ Choose image of your dog</Text>}
+        {!image && <Text style={styles.chooseImageText}>+ Choose image a dog that you found</Text>}
       </TouchableOpacity>
 
       <Text style={styles.labelText}>Title</Text>
@@ -105,10 +102,18 @@ export default function AddMissingDog(closeModal) {
       <TextInput
         style={styles.inputText}
         multiline
-        placeholder="Describe your dog and what happened!"
+        placeholder="Describe the dog!"
         placeholderTextColor="black"
         minHeight={200}
         onChangeText={text => setFormDescription(text)}
+      />
+      <Text style={styles.labelText}>Contact number</Text>
+      <TextInput
+        style={styles.inputText}
+        keyboardType="numeric"
+        placeholder=""
+        placeholderTextColor="black"
+        onChangeText={text => setFormContactNumber(text)}
       />
       <TouchableOpacity
         onPress={async () => {
@@ -117,8 +122,9 @@ export default function AddMissingDog(closeModal) {
             title: formTitle,
             description: formDescription,
             imageUri: image,
+            phoneNumber: formContactNumber,
           };
-          appendData(MISSING_DOG_KEY, newData);
+          appendData(FOUND_DOG_KEY, newData);
           Alert.alert('OK', 'Success!');
           closeModal.closeModal();
         }}

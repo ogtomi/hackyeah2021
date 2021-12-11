@@ -1,12 +1,41 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { StyleSheet, Text, View, FlatList, ImageBackground, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DogPost from '../../components/DogPost';
 import MyModal from '../../components/MyModal';
 
 const imageSource = require('../../images/background.jpg')
 
+const getData = async key => {
+  try {
+    var jsonValue = await AsyncStorage.getItem(key);
+    if (jsonValue != null) {
+      //console.log(JSON.parse(jsonValue));
+      return JSON.parse(jsonValue);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
 const FoundDogsScreen = ({ navigation }) => {
+  const FOUND_DOG_KEY = '@found_dog_key'
+  const [DATA, setDATA] = useState('');
+  const [refreshing, setRefreshing] = useState(true);
+
+  useEffect(async () => {
+    var loadedData = await getData(FOUND_DOG_KEY);
+    setDATA(loadedData)
+    setRefreshing(false)
+  }, []);
+
+  const onRefresh = async () => {
+      var loadedData = await getData(FOUND_DOG_KEY)
+      console.log(loadedData)
+      setDATA(loadedData)
+      setRefreshing(false)
+  }
   return (
     <ImageBackground
       source={imageSource}
@@ -27,25 +56,29 @@ const FoundDogsScreen = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate('FoundDogsInfoScreen', {
                   title: item.title,
-                  content: item.content,
-                  imgURL: item.imgSrc,
-                  longitude: item.longitude,
-                  latitude: item.latitude,
+                  description: item.description,
+                  imgURL: item.imageUri,
+                  phoneNumber: item.phoneNumber
                 })
              }
             >
               <DogPost
                 title={item.title}
-                content={item.content}
-                image={item.imgSrc}
+                description={item.description}
+                image={{ uri: item.imageUri }}
+                phoneNumber={item.phoneNumber}
               />
             </TouchableOpacity>
           )}
           keyExtractor={item => item.id}
+          refreshControl={
+            <RefreshControl
+              //refresh control used for the Pull to Refresh
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         ></FlatList>
-        <TouchableOpacity>
-
-        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -75,8 +108,8 @@ const DATA = [
   {
     id: '1',
     title: 'Dalmatyńczyk o imieniu Damian',
-    content: 'Zgubił się podczas ostatniego spaceru',
-    imgSrc: {
+    description: 'Znalazł się cały i zdrowy',
+    imgUri: {
       uri: 'https://i.kinja-img.com/gawker-media/image/upload/c_scale,f_auto,fl_progressive,pg_1,q_80,w_800/etw5ahwcfttkqikxbfg3.jpg',
     },
     latitude: 54.539,
@@ -85,30 +118,30 @@ const DATA = [
   {
     id: '2',
     title: 'Bardzo duży pies',
-    content: 'NIGDZIE SIE NIE ZGUBIŁ',
+    description: 'NIGDZIE SIE NIE ZGUBIŁ',
   },
   {
     id: '3',
     title: 'Światowy Dzień Komara',
-    content:
+    description:
       'W przeprowadzanych przez Lasy Państwowe badaniach opinii publicznej niechęć do kłujących nas owadów deklaruje aż co trzeci badany.',
   },
   {
     id: '4',
     title: 'Rzeźbią „Ducha lasu”',
-    content:
+    description:
       'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
   },
   {
     id: '5',
     title: 'Światowy Dzień Komara',
-    content:
+    description:
       'W przeprowadzanych przez Lasy Państwowe badaniach opinii publicznej niechęć do kłujących nas owadów deklaruje aż co trzeci badany.',
   },
   {
     id: '6',
     title: 'Rzeźbią „Ducha lasu”',
-    content:
+    description:
       'W poniedziałek, mimo deszczowej pogody, rozpoczął się plener artystyczny pod hasłem „Duch lasu”, współorganizowany przez Nadleśnictwo Dukla i Gminny Ośrodek Kultury w Iwoniczu Zdroju.',
   },
 ];
