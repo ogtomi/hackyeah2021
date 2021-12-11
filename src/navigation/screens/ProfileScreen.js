@@ -54,7 +54,7 @@ const ProfileScreen = ({ navigation }) => {
   useEffect(async () => {
     const unsubscribe = navigation.addListener('focus', () => {
       onRefresh();
-      console.log(loginData.name);
+      //console.log(loginData.name);
     });
 
     return unsubscribe;

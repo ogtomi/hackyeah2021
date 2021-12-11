@@ -30,7 +30,7 @@ const MainNavigation = () => {
       {({ storedCredentials }) => (
         <NavigationContainer>
           <Tab.Navigator
-            initialRouteName={homeScreen}
+            initialRouteName={marketScreen}
             screenOptions={({ route }) => ({
               headerShown: false,
               tabBarIcon: ({ focused, color, size }) => {
