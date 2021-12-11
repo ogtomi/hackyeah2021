@@ -16,6 +16,7 @@ const RegisterForm = () => {
   const [password, setPassowrd] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext)
 
@@ -51,6 +52,7 @@ const RegisterForm = () => {
       <TouchableOpacity
         onPress={async () => {
           var newData = { name: name, surname: surname, email: email, password: password };
+          setIsLoggedIn(true)
           storeData(ADD_KEY, newData);
         }}
         style={styles.loginBtn}

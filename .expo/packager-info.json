@@ -4,5 +4,7 @@
   "packagerPort": 19000,
   "expoServerNgrokUrl": "https://y9-nej.anonymous.doge-app.exp.direct",
   "packagerNgrokUrl": "https://packager.y9-nej.anonymous.doge-app.exp.direct",
-  "ngrokPid": 2420
+  "ngrokPid": 7864,
+  "packagerPid": null,
+  "webpackServerPort": null
 }

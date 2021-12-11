@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MyModal from '../../components/MyModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoggedProfile from '../../components/LoggedProfile';
+import NotloggedProfile from '../../components/NotloggedProfile';
 
 const ADD_KEY = '@register_key';
 
@@ -18,34 +20,39 @@ const getData = async key => {
   }
 };
 
-const isUserLoggedIn = async () => {
-  var data = await getData(ADD_KEY)
-  if (data.email !== null) return data
-  return false
-}
-
 const ProfileScreen = ({ navigation }) => {
+  const [DATA, setDATA] = useState('');
+  const [refreshing, setRefreshing] = useState(true);
+
+  useEffect(async () => {
+    var loadedData = await getData(ADD_KEY);
+    setDATA(loadedData);
+    setRefreshing(false);
+    console.log(loadedData);
+  }, []);
+
+  const onRefresh = async () => {
+    var loadedData = await getData(ADD_KEY);
+    setDATA(loadedData);
+    setRefreshing(false);
+    console.log(loadedData);
+  };
+
   return (
     <View style={styles.container}>
-      <View>
+      {/* <View>
         <MyModal text="Register" name="Register me" />
         <MyModal text="Login" name="Log me" />
-      </View>
+      </View> */}
       <View>
-        <Text>Profile screen </Text>
+        <Text>
+          {DATA !== undefined ? (
+            <LoggedProfile name={DATA.name} surname={DATA.surname} email={DATA.email}/>
+          ) : (
+            <NotloggedProfile />
+          )}
+        </Text>
       </View>
-      
-      <TouchableOpacity
-        onPress={async () => {
-          var data = await getData(ADD_KEY);
-          console.log(data);
-          // for (var elem of data) {
-          //   console.log(elem);
-          // }
-        }}
-      >
-        <Text>READ VALUE</Text>
-      </TouchableOpacity>
     </View>
   );
 };
