@@ -140,7 +140,7 @@ export default function AddOfferService(closeModal) {
           onChangeText={text => setFormPrice(text)}
         />
       ) : (
-        <Text>Free serivce</Text>
+        <Text>Free service</Text>
       )}
 
       <TouchableOpacity

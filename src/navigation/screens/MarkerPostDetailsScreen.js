@@ -28,7 +28,7 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
       )}
       <View style={styles.postView}>
         <Text style={styles.title}>{title}</Text>
-        {prise == 'free' ? <Text style={styles.prise}>Free item</Text> : <Text style={styles.prise}>{prise} zł</Text>}
+        {prise == 'free' ? <Text style={styles.prise}>Free service</Text> : <Text style={styles.prise}>{prise} zł</Text>}
         <Text style={styles.contentText}>{description}</Text>
         <View style={{ flexDirection: 'row' }}>
             <Text style={styles.contentText}>Contact number: {phoneNumber}</Text>
