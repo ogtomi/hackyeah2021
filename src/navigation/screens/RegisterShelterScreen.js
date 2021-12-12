@@ -99,7 +99,7 @@ export default function RegisterShelterScreen({ navigation }) {
             'OK',
             'Your request was send! We will write you back after verification :)',
           );
-          navigation.navigate('LoginScreen');
+          navigation.navigate('ProfileScreen');
         }}
         style={styles.button}
       >

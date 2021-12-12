@@ -15,7 +15,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { TOYS_ADD_KEY, FOOD_ADD_KEY, CLOTHES_ADD_KEY } from '../utils';
 
-const FOUND_DOG_KEY = '@found_dog_key'
+const FOUND_DOG_KEY = '@found_dog_key';
 
 const appendData = async (key, value) => {
   try {
@@ -80,7 +80,7 @@ export default function AddFoundDog(closeModal) {
       style={styles.container}
       activeOpacity={1.0}
     >
-      <Text style={styles.titleText}> Add found dog</Text>
+      <Text style={styles.titleText}> Add found pet</Text>
       <TouchableOpacity onPress={pickImage} style={styles.chooseImage}>
         {image && (
           <Image
@@ -88,13 +88,17 @@ export default function AddFoundDog(closeModal) {
             style={{ width: '100%', height: 135 }}
           />
         )}
-        {!image && <Text style={styles.chooseImageText}>+ Choose image a dog that you found</Text>}
+        {!image && (
+          <Text style={styles.chooseImageText}>
+            + Choose image a pet that you found
+          </Text>
+        )}
       </TouchableOpacity>
 
       <Text style={styles.labelText}>Title</Text>
       <TextInput
         style={styles.inputText}
-        placeholder="Name of the dog, breed"
+        placeholder="Name of the pet, breed"
         placeholderTextColor="black"
         onChangeText={text => setFormTitle(text)}
       />
@@ -102,7 +106,7 @@ export default function AddFoundDog(closeModal) {
       <TextInput
         style={styles.inputText}
         multiline
-        placeholder="Describe the dog!"
+        placeholder="Describe the pet!"
         placeholderTextColor="black"
         minHeight={200}
         onChangeText={text => setFormDescription(text)}

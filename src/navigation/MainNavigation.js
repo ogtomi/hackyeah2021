@@ -15,11 +15,11 @@ import { CredentialsContext } from '../components/CredentialsContext';
 import ProfileNavigator from './ProfileNavigation';
 
 const homeScreen = 'Home';
-const findMyDogScreen = 'Lost Dogs';
+const findMyDogScreen = 'Lost pets';
 const profileScreen = 'My profile';
 const addScreen = 'Add';
 const marketScreen = 'Market';
-const foundDogScreen = 'Found dogs';
+const foundDogScreen = 'Found pets';
 
 const Tab = createBottomTabNavigator();
 const imageSource = require('../images/background.jpg');

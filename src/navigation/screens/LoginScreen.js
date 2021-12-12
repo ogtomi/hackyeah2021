@@ -36,8 +36,8 @@ const storeData = async (key, value) => {
 };
 
 export default function LoginScreen({ navigation }) {
-  const [formEmail, setFormEmail] = useState('');
-  const [formPassword, setPassword] = useState('');
+  const [formEmail, setFormEmail] = useState('jan.kowalski@gmail.com');
+  const [formPassword, setPassword] = useState('1234');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const onClickFunction = () => {
@@ -58,6 +58,7 @@ export default function LoginScreen({ navigation }) {
         placeholder="jan.kowalski@gmail.com"
         placeholderTextColor="black"
         onChangeText={text => setFormEmail(text)}
+        defaultValue={'jan.kowalski@gmail.com'}
       />
       <Text style={styles.labelText}>Password</Text>
       <TextInput

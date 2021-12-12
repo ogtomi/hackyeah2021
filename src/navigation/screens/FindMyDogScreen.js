@@ -57,7 +57,7 @@ const FindMyDogScreen = ({ navigation }) => {
     <View style={styles.container}>
       <FlatList
         ListHeaderComponent={
-          <Text style={styles.title}>Missing dogs in your neighbourhood</Text>
+          <Text style={styles.title}>Missing pets in your neighbourhood</Text>
         }
         style={styles.container}
         data={DATA}

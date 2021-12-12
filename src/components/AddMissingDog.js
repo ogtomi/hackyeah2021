@@ -43,7 +43,7 @@ export default function AddMissingDog(closeModal) {
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [formContactNumber, setFormContactNumber] = useState(null);
-  const [ location, setLocation ] = useState(null)
+  const [location, setLocation] = useState(null);
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -77,16 +77,16 @@ export default function AddMissingDog(closeModal) {
     }
   };
 
-  const callbackLocation = (location) => {
-    setLocation(location)
-  }
+  const callbackLocation = location => {
+    setLocation(location);
+  };
   return (
     <TouchableOpacity
       onPress={onClickFunction}
       style={styles.container}
       activeOpacity={1.0}
     >
-      <Text style={styles.titleText}> Add missing dog</Text>
+      <Text style={styles.titleText}> Add missing pet</Text>
       <TouchableOpacity onPress={pickImage} style={styles.chooseImage}>
         {image && (
           <Image
@@ -95,14 +95,14 @@ export default function AddMissingDog(closeModal) {
           />
         )}
         {!image && (
-          <Text style={styles.chooseImageText}>+ Choose image of your dog</Text>
+          <Text style={styles.chooseImageText}>+ Choose image of your pet</Text>
         )}
       </TouchableOpacity>
 
       <Text style={styles.labelText}>Title</Text>
       <TextInput
         style={styles.inputText}
-        placeholder="Name of the dog, breed"
+        placeholder="Name of the pet, breed"
         placeholderTextColor="black"
         onChangeText={text => setFormTitle(text)}
       />
@@ -110,7 +110,7 @@ export default function AddMissingDog(closeModal) {
       <TextInput
         style={styles.inputText}
         multiline
-        placeholder="Describe your dog and what happened!"
+        placeholder="Describe your pet and what happened!"
         placeholderTextColor="black"
         minHeight={200}
         onChangeText={text => setFormDescription(text)}
@@ -123,8 +123,8 @@ export default function AddMissingDog(closeModal) {
         placeholderTextColor="black"
         onChangeText={text => setFormContactNumber(text)}
       />
-      <Text style={styles.labelText}>Where did you last see the dog?</Text>
-      <PutPinOnaMapModule callbackLocation={callbackLocation}/>
+      <Text style={styles.labelText}>Where did you last see the pet?</Text>
+      <PutPinOnaMapModule callbackLocation={callbackLocation} />
       <TouchableOpacity
         onPress={async () => {
           var newData = {
@@ -134,7 +134,7 @@ export default function AddMissingDog(closeModal) {
             imageUri: image,
             latitude: location.latitude,
             phoneNumber: formContactNumber,
-            longitude: location.longitude
+            longitude: location.longitude,
           };
           appendData(MISSING_DOG_KEY, newData);
           Alert.alert('OK', 'Success!');

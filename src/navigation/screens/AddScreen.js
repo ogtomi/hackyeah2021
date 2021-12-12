@@ -123,7 +123,7 @@ export default function AddScreen({ navigation }) {
             }}
             style={styles.category1}
           >
-            <Text style={styles.buttonText}>Found dog</Text>
+            <Text style={styles.buttonText}>Found pet</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -131,7 +131,7 @@ export default function AddScreen({ navigation }) {
             }}
             style={styles.category2}
           >
-            <Text style={styles.buttonText}>Missing dog</Text>
+            <Text style={styles.buttonText}>Missing pet</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -155,12 +155,12 @@ export default function AddScreen({ navigation }) {
           >
             <Text style={styles.buttonText}>Give to shelter</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => AsyncStorage.clear()}
             style={styles.category2}
           >
             <Text style={styles.buttonText}>Clear</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <Modal transparent={false} visible={openAddElement}>
             <View style={styles.topButtonView}>

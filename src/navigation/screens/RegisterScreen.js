@@ -40,10 +40,10 @@ const storeData = async (key, value) => {
 };
 
 export default function LoginScreen({ navigation }) {
-  const [formName, setFormName] = useState('');
-  const [formSurname, setFormSurname] = useState('');
-  const [formEmail, setFormEmail] = useState('');
-  const [formPassword, setPassword] = useState('');
+  const [formName, setFormName] = useState('Jan');
+  const [formSurname, setFormSurname] = useState('Kowalski');
+  const [formEmail, setFormEmail] = useState('jan.kowalski@gmail.com');
+  const [formPassword, setPassword] = useState('1234');
 
   const onClickFunction = () => {
     Keyboard.dismiss();
@@ -62,6 +62,7 @@ export default function LoginScreen({ navigation }) {
         placeholder="Jan"
         placeholderTextColor="black"
         onChangeText={text => setFormName(text)}
+        defaultValue={'Jan'}
       />
       <Text style={styles.labelText}>Surname</Text>
       <TextInput
@@ -69,6 +70,7 @@ export default function LoginScreen({ navigation }) {
         placeholder="Kowalski"
         placeholderTextColor="black"
         onChangeText={text => setFormSurname(text)}
+        defaultValue={'Kowalski'}
       />
       <Text style={styles.labelText}>Email</Text>
       <TextInput
@@ -76,6 +78,7 @@ export default function LoginScreen({ navigation }) {
         placeholder="jan.kowalski@gmail.com"
         placeholderTextColor="black"
         onChangeText={text => setFormEmail(text)}
+        defaultValue={'jan.kowalski@gmail.com'}
       />
       <Text style={styles.labelText}>Password</Text>
       <TextInput

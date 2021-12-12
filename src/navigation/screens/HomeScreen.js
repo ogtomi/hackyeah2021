@@ -91,11 +91,11 @@ export default function HomeScreen({ navigation }) {
       <HomeScreenMarketPreview
         navigation={navigation}
       ></HomeScreenMarketPreview>
-      <Text style={styles.header}>Found dogs</Text>
+      <Text style={styles.header}>Found pets</Text>
       <HomeScreenFoundDogsPreview
         navigation={navigation}
       ></HomeScreenFoundDogsPreview>
-      <Text style={styles.header}>Lost dogs</Text>
+      <Text style={styles.header}>Lost pets</Text>
       <HomeScreenLostDogsPreview
         navigation={navigation}
       ></HomeScreenLostDogsPreview>
