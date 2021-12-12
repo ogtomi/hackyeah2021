@@ -1,17 +1,30 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert,
+} from 'react-native';
 import { NAMES } from '../../utils';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FAVOURITES_KEY = '@favourites_key';
 
 const appendData = async (key, value) => {
   try {
     var prevData = await AsyncStorage.getItem(key);
+
     if (prevData != null) {
       prevData = JSON.parse(prevData);
+
+      var lastId = prevData.length - 1;
+      value.id = lastId + 1;
       prevData.push(value);
+
       const jsonValue = JSON.stringify(prevData);
       await AsyncStorage.setItem(key, jsonValue);
     } else {
@@ -19,7 +32,7 @@ const appendData = async (key, value) => {
       await AsyncStorage.setItem(key, jsonValue);
     }
   } catch (e) {
-    // error reading value
+    console.log(e);
   }
 };
 
@@ -55,9 +68,16 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
         />
       )}
       <View style={styles.postView}>
-        <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: 'white',
+          }}
+        >
           <Text style={styles.title}>{title}</Text>
           <TouchableOpacity
+            style={styles.touchable}
             onPress={async () => {
               var newData = {
                 id: '0',
@@ -68,15 +88,15 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
                 imageUri: imageUri,
                 prise: prise,
                 fromHome: fromHome,
-              }
-              appendData(FAVOURITES_KEY, newData)
-              Alert.alert('OK', "Added to favourites!")
+              };
+              await appendData(FAVOURITES_KEY, newData);
+              Alert.alert('OK', 'Added to favourites!');
             }}
           >
             <View style={styles.title}>
               <Ionicons
                 style={styles.icon}
-                size={20}
+                size={40}
                 name={'heart-outline'}
               ></Ionicons>
             </View>
@@ -99,6 +119,9 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
 export default MarketPostDetailsScreen;
 
 const styles = StyleSheet.create({
+  touchable: {
+    paddingRight: 15,
+  },
   container: {
     flex: 1,
     marginTop: 20,
