@@ -115,69 +115,6 @@ export default function AddScreen({ navigation }) {
       resizeMode="cover"
       imageStyle={{ opacity: 0.3 }}
     >
-<<<<<<< HEAD
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenAddFoundDog(true);
-          }}
-          style={styles.category1}
-        >
-          <Text style={styles.buttonText}>Found dog</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenAddMissingDog(true);
-          }}
-          style={styles.category2}
-        >
-          <Text style={styles.buttonText}>Missing dog</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenAddElement(true);
-          }}
-          style={styles.category3}
-        >
-          <Text style={styles.buttonText}>New item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setOpenOfferSerive(true);
-          }}
-          style={styles.category1}
-        >
-          <Text style={styles.buttonText}>Offer service</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setOpenGiveToShelter(true)}
-          style={styles.category3}
-        >
-          <Text style={styles.buttonText}>Give to shelter</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => AsyncStorage.clear()}
-          style={styles.category2}
-        >
-          <Text style={styles.buttonText}>Clear</Text>
-        </TouchableOpacity>
-
-        <Modal transparent={false} visible={openAddElement}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenAddElement(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddElement
-              closeModal={() => setOpenAddElement(false)}
-            ></AddElement>
-          </ScrollView>
-        </Modal>
-=======
       {isLogged && (
         <View style={styles.container}>
           <TouchableOpacity
@@ -240,7 +177,6 @@ export default function AddScreen({ navigation }) {
               ></AddElement>
             </ScrollView>
           </Modal>
->>>>>>> 55e1a6dcf6eed68a0ed565c7eed7433e7f833db8
 
           {/* MISSING DOG MODAL */}
           <Modal transparent={false} visible={openAddMissingDog}>
@@ -259,41 +195,6 @@ export default function AddScreen({ navigation }) {
             </ScrollView>
           </Modal>
 
-<<<<<<< HEAD
-        {/* FOUND DOG MODAL */}
-        <Modal transparent={false} visible={openAddFoundDog}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenAddFoundDog(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddFoundDog
-              closeModal={() => setOpenAddFoundDog(false)}
-            ></AddFoundDog>
-          </ScrollView>
-        </Modal>
-
-        {/* OFFER SERVICE MODAL */}
-        <Modal transparent={false} visible={openOfferSerive}>
-          <View style={styles.topButtonView}>
-            <TouchableOpacity
-              style={styles.topButton}
-              onPress={() => setOpenOfferSerive(false)}
-            >
-              <Text style={styles.topButtonText}>{'X'}</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView>
-            <AddOfferService
-              closeModal={() => setOpenOfferSerive(false)}
-            ></AddOfferService>
-          </ScrollView>
-        </Modal>
-=======
           {/* FOUND DOG MODAL */}
           <Modal transparent={false} visible={openAddFoundDog}>
             <View style={styles.topButtonView}>
@@ -310,7 +211,6 @@ export default function AddScreen({ navigation }) {
               ></AddFoundDog>
             </ScrollView>
           </Modal>
->>>>>>> 55e1a6dcf6eed68a0ed565c7eed7433e7f833db8
 
           {/* OFFER SERVICE MODAL */}
           <Modal transparent={false} visible={openOfferSerive}>
