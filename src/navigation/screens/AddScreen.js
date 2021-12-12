@@ -150,7 +150,7 @@ export default function AddScreen({ navigation }) {
             <Text style={styles.buttonText}>Offer service</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setOpenOfferSerive(true)}
+            onPress={() => setOpenGiveToShelter(true)}
             style={styles.category3}
           >
             <Text style={styles.buttonText}>Give to shelter</Text>
