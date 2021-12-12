@@ -12,7 +12,6 @@ import MapModule from '../../components/MapModule';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const imageSource = require('../../images/background.jpg');
-const FAVOURITES_KEY = '@favourites_key';
 
 const appendData = async (key, value) => {
   try {
@@ -64,18 +63,7 @@ const LostDogInfoScreen = ({ route, navigation }) => {
           <Text style={styles.topButtonText}>{'<'}</Text>
         </TouchableOpacity>
         <View style={styles.postView}>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.title}>{title}</Text>
-            <TouchableOpacity>
-              <View style={{ marginLeft: 10 }}>
-                <Ionicons
-                  style={styles.icon}
-                  size={20}
-                  name={'heart-outline'}
-                ></Ionicons>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.title}>{title}</Text>
           <View>
             <Text style={styles.contentText}>{description}</Text>
           </View>

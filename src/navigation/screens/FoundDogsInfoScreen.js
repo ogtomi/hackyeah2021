@@ -70,31 +70,7 @@ const FoundDogsInfoScreen = ({ route, navigation }) => {
         />
       )}
       <View style={styles.postView}>
-      <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.title}>{title}</Text>
-          <TouchableOpacity
-            onPress={async () => {
-              var newData = {
-                id: '0',
-                title: title,
-                description: description,
-                imageUri: imgURL,
-                phoneNumber: phoneNumber,
-                fromHome: fromHome
-              }
-              appendData(FAVOURITES_KEY, newData);
-              Alert.alert('OK', 'Added to favourites')
-            }}
-          >
-            <View style={styles.title}>
-              <Ionicons
-                style={styles.icon}
-                size={20}
-                name={'heart-outline'}
-              ></Ionicons>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.contentText}>{description}</Text>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.staticText}>Contact number:</Text>

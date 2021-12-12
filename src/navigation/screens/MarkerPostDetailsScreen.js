@@ -1,6 +1,6 @@
 import React from 'react';
 import MyModal from '../../components/MyModal';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { NAMES } from '../../utils';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -57,7 +57,22 @@ const MarketPostDetailsScreen = ({ route, navigation }) => {
       <View style={styles.postView}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.title}>{title}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={async () => {
+              var newData = {
+                id: '0',
+                title: title,
+                description: description,
+                category: category,
+                phoneNumber: phoneNumber,
+                imageUri: imageUri,
+                prise: prise,
+                fromHome: fromHome,
+              }
+              appendData(FAVOURITES_KEY, newData)
+              Alert.alert('OK', "Added to favourites!")
+            }}
+          >
             <View style={styles.title}>
               <Ionicons
                 style={styles.icon}
