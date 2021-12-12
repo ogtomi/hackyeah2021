@@ -61,7 +61,7 @@ const searchAndGetData = async word => {
       title = title.toLowerCase();
       title = title.split(' ');
       for (var singleWord of title) {
-        console.log(singleWord);
+        //console.log(singleWord);
         if (singleWord == word) {
           DATA.push(elem);
           break;

@@ -98,6 +98,12 @@ const ProfileScreen = ({ navigation }) => {
             >
               <Text style={styles.categoryText}>Register</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('RegisterShelterScreen', {})}
+              style={styles.category3}
+            >
+              <Text style={styles.categoryText}>Register as a Shelter</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}
